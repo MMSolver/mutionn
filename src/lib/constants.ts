@@ -10,6 +10,7 @@ export const NAV_ITEMS = [
   { label: "Referanslar", href: "/referanslar" },
   { label: "Hakkımızda", href: "/hakkimizda" },
   { label: "Fiyatlandırma", href: "/fiyatlandirma" },
+  { label: "İş Ortaklığı", href: "/ortaklik" },
 ] as const;
 
 export const SERVICES = [
