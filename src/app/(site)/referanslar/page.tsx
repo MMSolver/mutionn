@@ -1,7 +1,22 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Star, Quote, ArrowLeft, ArrowRight, Building2, Shield, ShoppingCart, Cpu, Rocket, BarChart3 } from "lucide-react";
+import { useEffect, useRef, useState, useCallback } from "react";
+import {
+  Star,
+  Quote,
+  ArrowLeft,
+  ArrowRight,
+  Building2,
+  Shield,
+  ShoppingCart,
+  Cpu,
+  Rocket,
+  BarChart3,
+  Globe,
+  Layers,
+  Briefcase,
+  TrendingUp,
+} from "lucide-react";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 const BRANDS = [
@@ -13,6 +28,10 @@ const BRANDS = [
   { name: "Pulse Dijital", sector: "Dijital Pazarlama" },
   { name: "Deniz Yazılım", sector: "Yazılım" },
   { name: "Kırmızı Medya", sector: "Medya & İletişim" },
+  { name: "Orion Sağlık", sector: "Sağlık Teknolojisi" },
+  { name: "Kale Sigorta", sector: "Sigortacılık" },
+  { name: "Zirve Danışmanlık", sector: "Yönetim Danışmanlığı" },
+  { name: "Akıllı Tarım", sector: "Tarım Teknolojisi" },
 ];
 
 const TESTIMONIALS = [
@@ -23,6 +42,7 @@ const TESTIMONIALS = [
     quote:
       "Tüm sevkiyat takip sistemimizi sıfırdan kurdu. Müşteri memnuniyetimiz %40 arttı, operasyonel hatalarımız neredeyse sıfıra indi. 3 yıldır sorunsuz çalışıyoruz.",
     service: "Özel Yazılım Geliştirme",
+    metric: "%40 müşteri memnuniyeti artışı",
     icon: Building2,
   },
   {
@@ -32,6 +52,7 @@ const TESTIMONIALS = [
     quote:
       "E-ticaret altyapımızı tamamen yeniledi. Sayfa yüklenme hızımız 4 saniyeden 0.8 saniyeye düştü. Dönüşüm oranlarımız ilk ayda %25 arttı.",
     service: "E-Ticaret Çözümleri",
+    metric: "%25 dönüşüm artışı",
     icon: ShoppingCart,
   },
   {
@@ -41,6 +62,7 @@ const TESTIMONIALS = [
     quote:
       "Güvenlik denetiminde 12 kritik açık tespit etti ve hepsini 48 saat içinde kapattı. PCI DSS uyumluluk sürecimizi büyük ölçüde hızlandırdı.",
     service: "Siber Güvenlik",
+    metric: "12 kritik açık kapatıldı",
     icon: Shield,
   },
   {
@@ -50,6 +72,7 @@ const TESTIMONIALS = [
     quote:
       "SaaS ürünümüzü MVP'den üretime 3 ayda taşıdı. Şu an 500+ aktif kullanıcıyla sorunsuz çalışıyor. Teknik bilgisi ve iletişimi mükemmel.",
     service: "SaaS Ürün Geliştirme",
+    metric: "500+ aktif kullanıcı",
     icon: Rocket,
   },
   {
@@ -59,6 +82,7 @@ const TESTIMONIALS = [
     quote:
       "50 mağazamızın stok ve sipariş süreçlerini otomatikleştirdi. Günde 3 saat manuel iş tasarrufu sağladık. Yatırımımız 2 ayda kendini amorti etti.",
     service: "Otomasyon Çözümleri",
+    metric: "Günde 3 saat tasarruf",
     icon: Cpu,
   },
   {
@@ -68,7 +92,48 @@ const TESTIMONIALS = [
     quote:
       "Mobil uygulamamız App Store'da kategorisinde ilk 50'ye girdi. Kullanıcı deneyimi tasarımı ve performans konusunda beklentimizin üzerinde iş çıkardı.",
     service: "Mobil Uygulama Geliştirme",
+    metric: "App Store ilk 50",
     icon: BarChart3,
+  },
+  {
+    name: "Canan Yıldırım",
+    role: "IT Müdürü",
+    company: "Kale Sigorta",
+    quote:
+      "Yıllık penetrasyon testi ve güvenlik izleme hizmetiyle KVKK uyum sürecimizi sorunsuz tamamladık. Siber güvenlik konusunda tam güven duyuyoruz.",
+    service: "Siber Güvenlik",
+    metric: "KVKK tam uyum",
+    icon: Shield,
+  },
+  {
+    name: "Oğuz Tan",
+    role: "Kurucu Ortak",
+    company: "Orion Sağlık",
+    quote:
+      "Hasta takip sistemimiz sayesinde randevu kaçırma oranımız %60 azaldı. Hastalarımız uygulamayı çok seviyor, biz de operasyonel olarak rahatladık.",
+    service: "Özel Yazılım Geliştirme",
+    metric: "%60 randevu kaçırma azalması",
+    icon: Globe,
+  },
+  {
+    name: "Zeynep Koç",
+    role: "E-Ticaret Müdürü",
+    company: "Vega İnşaat",
+    quote:
+      "Online malzeme satış platformumuzu kurdu. İlk 6 ayda 200+ B2B müşteri kazandık. Ödeme ve kargo entegrasyonları kusursuz çalışıyor.",
+    service: "E-Ticaret Çözümleri",
+    metric: "6 ayda 200+ B2B müşteri",
+    icon: Layers,
+  },
+  {
+    name: "Emre Çelik",
+    role: "Operasyon Direktörü",
+    company: "Zirve Danışmanlık",
+    quote:
+      "CRM ve proje yönetim araçlarımızı tek bir panelde birleştirdi. Ekibimizin verimliliği gözle görülür şekilde arttı, raporlama sürelerimiz yarıya indi.",
+    service: "Otomasyon Çözümleri",
+    metric: "Raporlama süresi %50 azaldı",
+    icon: Briefcase,
   },
 ];
 
@@ -79,32 +144,103 @@ const STATS = [
   { value: "3+", label: "Yıllık Deneyim" },
 ];
 
+function TestimonialCard({
+  t,
+  featured = false,
+}: {
+  t: (typeof TESTIMONIALS)[number];
+  featured?: boolean;
+}) {
+  const Icon = t.icon;
+  return (
+    <div
+      className={`flex h-full flex-col rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] transition-colors hover:border-[var(--accent-primary)]/30 ${
+        featured ? "p-8" : "p-6"
+      }`}
+    >
+      <div className="mb-3 flex items-center justify-between">
+        <div className="flex gap-1">
+          {[...Array(5)].map((_, j) => (
+            <Star
+              key={j}
+              className={`${featured ? "h-4 w-4" : "h-3.5 w-3.5"} fill-[var(--accent-primary)] text-[var(--accent-primary)]`}
+            />
+          ))}
+        </div>
+        <div className="flex items-center gap-2 rounded-md bg-[var(--accent-primary)]/10 px-2 py-1">
+          <Icon className="h-3.5 w-3.5 text-[var(--accent-primary)]" />
+          <span className="text-[10px] font-medium text-[var(--accent-primary)]">
+            {t.service}
+          </span>
+        </div>
+      </div>
+
+      <p
+        className={`flex-1 leading-relaxed text-[var(--text-secondary)] italic ${
+          featured ? "text-base" : "text-sm"
+        }`}
+      >
+        &ldquo;{t.quote}&rdquo;
+      </p>
+
+      <div className="mt-3 mb-4">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--accent-primary)]/5 px-3 py-1 text-xs font-semibold text-[var(--accent-primary)]">
+          <TrendingUp className="h-3 w-3" />
+          {t.metric}
+        </span>
+      </div>
+
+      <div className="flex items-center gap-3 border-t border-[var(--border-default)] pt-4">
+        <div
+          className={`flex items-center justify-center rounded-full bg-[var(--accent-primary)] font-bold text-[var(--bg-primary)] ${
+            featured ? "h-11 w-11 text-base" : "h-9 w-9 text-sm"
+          }`}
+        >
+          {t.name.charAt(0)}
+        </div>
+        <div>
+          <p
+            className={`font-semibold text-[var(--text-primary)] ${featured ? "text-base" : "text-sm"}`}
+          >
+            {t.name}
+          </p>
+          <p className="text-xs text-[var(--text-muted)]">
+            {t.role}, {t.company}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ReferanslarPage() {
-  const [active, setActive] = useState(0);
+  const [slide, setSlide] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const totalSlides = Math.ceil(TESTIMONIALS.length / 3);
+
+  const startAutoplay = useCallback(() => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      setSlide((p) => (p + 1) % totalSlides);
+    }, 6000);
+  }, [totalSlides]);
 
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setActive((p) => (p + 1) % TESTIMONIALS.length);
-    }, 5000);
+    startAutoplay();
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, []);
+  }, [startAutoplay]);
 
   const goTo = (index: number) => {
-    setActive(index);
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    intervalRef.current = setInterval(() => {
-      setActive((p) => (p + 1) % TESTIMONIALS.length);
-    }, 5000);
+    setSlide(index);
+    startAutoplay();
   };
 
-  const prev = () => goTo((active - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
-  const next = () => goTo((active + 1) % TESTIMONIALS.length);
+  const prev = () => goTo((slide - 1 + totalSlides) % totalSlides);
+  const next = () => goTo((slide + 1) % totalSlides);
 
-  const current = TESTIMONIALS[active];
-  const Icon = current.icon;
+  const visibleCards = TESTIMONIALS.slice(slide * 3, slide * 3 + 3);
 
   return (
     <div className="bg-[var(--bg-primary)] pt-24 pb-16">
@@ -120,188 +256,18 @@ export default function ReferanslarPage() {
             </h1>
             <p className="mt-4 text-lg text-[var(--text-secondary)]">
               Farklı sektörlerden firmalarla başarılı projeler gerçekleştirdik.
+              İşte bazı müşterilerimizin hikayesi.
             </p>
           </div>
         </ScrollReveal>
 
-        {/* Brand scroll band */}
-        <ScrollReveal delay={100}>
-          <div className="relative mt-16 overflow-hidden">
-            <div className="absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r from-[var(--bg-primary)] to-transparent" />
-            <div className="absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l from-[var(--bg-primary)] to-transparent" />
-            <div className="flex animate-scroll-x gap-8">
-              {[...BRANDS, ...BRANDS].map((brand, i) => (
-                <div
-                  key={`${brand.name}-${i}`}
-                  className="flex shrink-0 items-center gap-3 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)] px-6 py-4"
-                >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--accent-primary)]/10">
-                    <span className="text-lg font-bold text-[var(--accent-primary)]">
-                      {brand.name.charAt(0)}
-                    </span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-[var(--text-primary)] whitespace-nowrap">
-                      {brand.name}
-                    </p>
-                    <p className="text-xs text-[var(--text-muted)] whitespace-nowrap">
-                      {brand.sector}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </ScrollReveal>
-
-        {/* Testimonial Slider */}
-        <ScrollReveal delay={200}>
-          <div className="mt-20">
-            <div className="relative mx-auto max-w-4xl">
-              {/* Main card */}
-              <div className="rounded-2xl border border-[var(--border-default)] bg-[var(--bg-secondary)] p-8 md:p-12">
-                <div className="flex items-start gap-4">
-                  <div className="hidden shrink-0 rounded-xl bg-[var(--accent-primary)]/10 p-3 md:block">
-                    <Quote className="h-6 w-6 text-[var(--accent-primary)]" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="mb-4 flex gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className="h-5 w-5 fill-[var(--accent-primary)] text-[var(--accent-primary)]"
-                        />
-                      ))}
-                    </div>
-
-                    <p
-                      className="text-lg leading-relaxed text-[var(--text-secondary)] md:text-xl transition-opacity duration-500"
-                      key={active}
-                    >
-                      &ldquo;{current.quote}&rdquo;
-                    </p>
-
-                    <div className="mt-8 flex flex-col gap-4 border-t border-[var(--border-default)] pt-6 sm:flex-row sm:items-center sm:justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent-primary)] text-lg font-bold text-[var(--bg-primary)]">
-                          {current.name.charAt(0)}
-                        </div>
-                        <div>
-                          <p className="font-semibold text-[var(--text-primary)]">
-                            {current.name}
-                          </p>
-                          <p className="text-sm text-[var(--text-muted)]">
-                            {current.role}, {current.company}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2 rounded-lg bg-[var(--accent-primary)]/10 px-3 py-1.5">
-                        <Icon className="h-4 w-4 text-[var(--accent-primary)]" />
-                        <span className="text-xs font-medium text-[var(--accent-primary)]">
-                          {current.service}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Controls */}
-              <div className="mt-6 flex items-center justify-center gap-4">
-                <button
-                  onClick={prev}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border-default)] text-[var(--text-secondary)] transition-colors hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
-                  aria-label="Önceki"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                </button>
-
-                <div className="flex gap-2">
-                  {TESTIMONIALS.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => goTo(i)}
-                      className={`h-2 rounded-full transition-all duration-300 ${
-                        i === active
-                          ? "w-8 bg-[var(--accent-primary)]"
-                          : "w-2 bg-[var(--border-default)] hover:bg-[var(--text-muted)]"
-                      }`}
-                      aria-label={`Referans ${i + 1}`}
-                    />
-                  ))}
-                </div>
-
-                <button
-                  onClick={next}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border-default)] text-[var(--text-secondary)] transition-colors hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
-                  aria-label="Sonraki"
-                >
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </ScrollReveal>
-
-        {/* All testimonials grid */}
-        <div className="mt-20">
-          <ScrollReveal>
-            <h2 className="text-center font-[family-name:var(--font-heading)] text-2xl font-bold text-[var(--text-primary)]">
-              Tüm Müşteri Görüşleri
-            </h2>
-          </ScrollReveal>
-
-          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {TESTIMONIALS.map((t, i) => {
-              const TIcon = t.icon;
-              return (
-                <ScrollReveal key={t.name} delay={i * 80}>
-                  <div className="flex h-full flex-col rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] p-6 transition-colors hover:border-[var(--accent-primary)]/30">
-                    <div className="mb-3 flex items-center justify-between">
-                      <div className="flex gap-1">
-                        {[...Array(5)].map((_, j) => (
-                          <Star
-                            key={j}
-                            className="h-3.5 w-3.5 fill-[var(--accent-primary)] text-[var(--accent-primary)]"
-                          />
-                        ))}
-                      </div>
-                      <div className="rounded-md bg-[var(--accent-primary)]/10 p-1.5">
-                        <TIcon className="h-3.5 w-3.5 text-[var(--accent-primary)]" />
-                      </div>
-                    </div>
-
-                    <p className="flex-1 text-sm leading-relaxed text-[var(--text-secondary)] italic">
-                      &ldquo;{t.quote}&rdquo;
-                    </p>
-
-                    <div className="mt-4 flex items-center gap-3 border-t border-[var(--border-default)] pt-4">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--accent-primary)]/10 text-sm font-bold text-[var(--accent-primary)]">
-                        {t.name.charAt(0)}
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-[var(--text-primary)]">
-                          {t.name}
-                        </p>
-                        <p className="text-xs text-[var(--text-muted)]">
-                          {t.role}, {t.company}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </ScrollReveal>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Stats */}
-        <ScrollReveal delay={100}>
-          <div className="mt-20 grid grid-cols-2 gap-6 md:grid-cols-4">
+        {/* Stats bar */}
+        <ScrollReveal delay={80}>
+          <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
             {STATS.map((stat) => (
               <div
                 key={stat.label}
-                className="rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] p-6 text-center"
+                className="rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] p-5 text-center"
               >
                 <p className="font-[family-name:var(--font-heading)] text-3xl font-bold text-[var(--accent-primary)]">
                   {stat.value}
@@ -313,6 +279,143 @@ export default function ReferanslarPage() {
             ))}
           </div>
         </ScrollReveal>
+
+        {/* Brand scroll band */}
+        <ScrollReveal delay={120}>
+          <div className="mt-16">
+            <p className="mb-6 text-center text-xs font-medium uppercase tracking-widest text-[var(--text-muted)]">
+              Birlikte Çalıştığımız Markalar
+            </p>
+            <div className="relative overflow-hidden">
+              <div className="absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-[var(--bg-primary)] to-transparent" />
+              <div className="absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-[var(--bg-primary)] to-transparent" />
+              <div className="flex animate-scroll-x gap-6">
+                {[...BRANDS, ...BRANDS].map((brand, i) => (
+                  <div
+                    key={`${brand.name}-${i}`}
+                    className="flex shrink-0 items-center gap-3 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)] px-5 py-3"
+                  >
+                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--accent-primary)]/10">
+                      <span className="text-base font-bold text-[var(--accent-primary)]">
+                        {brand.name.charAt(0)}
+                      </span>
+                    </div>
+                    <div>
+                      <p className="whitespace-nowrap text-sm font-semibold text-[var(--text-primary)]">
+                        {brand.name}
+                      </p>
+                      <p className="whitespace-nowrap text-xs text-[var(--text-muted)]">
+                        {brand.sector}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </ScrollReveal>
+
+        {/* Featured Testimonial Slider — 3 cards at a time */}
+        <ScrollReveal delay={160}>
+          <div className="mt-20">
+            <div className="mb-8 flex items-end justify-between">
+              <div>
+                <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
+                  Müşteri Görüşleri
+                </p>
+                <h2 className="mt-2 font-[family-name:var(--font-heading)] text-2xl font-bold text-[var(--text-primary)] md:text-3xl">
+                  Onlar Ne Diyor?
+                </h2>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={prev}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border-default)] text-[var(--text-secondary)] transition-colors hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
+                  aria-label="Önceki"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={next}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border-default)] text-[var(--text-secondary)] transition-colors hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
+                  aria-label="Sonraki"
+                >
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3" key={slide}>
+              {visibleCards.map((t) => (
+                <TestimonialCard key={t.name} t={t} featured />
+              ))}
+            </div>
+
+            {/* Dots */}
+            <div className="mt-8 flex justify-center gap-2">
+              {Array.from({ length: totalSlides }).map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => goTo(i)}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    i === slide
+                      ? "w-10 bg-[var(--accent-primary)]"
+                      : "w-2 bg-[var(--border-default)] hover:bg-[var(--text-muted)]"
+                  }`}
+                  aria-label={`Sayfa ${i + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        </ScrollReveal>
+
+        {/* Highlight quote */}
+        <ScrollReveal delay={100}>
+          <div className="mx-auto mt-20 max-w-3xl rounded-2xl border border-[var(--accent-primary)]/20 bg-[var(--bg-secondary)] p-10 text-center md:p-14">
+            <Quote className="mx-auto mb-6 h-10 w-10 text-[var(--accent-primary)] opacity-40" />
+            <p className="text-xl leading-relaxed text-[var(--text-secondary)] italic md:text-2xl">
+              &ldquo;Teknik konulardaki uzmanlığı kadar iletişimi de çok
+              kuvvetli. Projeyi teslim ettikten sonra da destek devam ediyor.
+              Uzun vadeli çalışabileceğiniz ender isimlerden.&rdquo;
+            </p>
+            <div className="mt-8 flex flex-col items-center gap-2">
+              <div className="flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="h-5 w-5 fill-[var(--accent-primary)] text-[var(--accent-primary)]"
+                  />
+                ))}
+              </div>
+              <p className="font-semibold text-[var(--text-primary)]">
+                Hakan Erdoğan
+              </p>
+              <p className="text-sm text-[var(--text-muted)]">
+                CTO, Akıllı Tarım
+              </p>
+            </div>
+          </div>
+        </ScrollReveal>
+
+        {/* Full grid — all testimonials */}
+        <div className="mt-20">
+          <ScrollReveal>
+            <h2 className="text-center font-[family-name:var(--font-heading)] text-2xl font-bold text-[var(--text-primary)]">
+              Tüm Referanslar
+            </h2>
+            <p className="mx-auto mt-2 max-w-md text-center text-sm text-[var(--text-secondary)]">
+              Her sektörden müşterilerimizin deneyimlerini okuyun
+            </p>
+          </ScrollReveal>
+
+          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {TESTIMONIALS.map((t, i) => (
+              <ScrollReveal key={t.name} delay={i * 60}>
+                <TestimonialCard t={t} />
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
 
         {/* CTA */}
         <ScrollReveal delay={100}>
