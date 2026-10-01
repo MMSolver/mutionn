@@ -6,6 +6,7 @@ const COMPANY_LINKS = [
   { label: "Projeler", href: "/projeler" },
   { label: "Referanslar", href: "/referanslar" },
   { label: "Fiyatlandırma", href: "/fiyatlandirma" },
+  { label: "İş Ortaklığı", href: "/ortaklik" },
 ] as const;
 
 export function Footer() {
