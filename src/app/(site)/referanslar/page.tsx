@@ -262,7 +262,7 @@ export default function ReferanslarPage() {
         </ScrollReveal>
 
         {/* Stats bar */}
-        <ScrollReveal delay={80}>
+        <ScrollReveal delay={0.1}>
           <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
             {STATS.map((stat) => (
               <div
@@ -281,7 +281,7 @@ export default function ReferanslarPage() {
         </ScrollReveal>
 
         {/* Brand scroll band */}
-        <ScrollReveal delay={120}>
+        <ScrollReveal delay={0.15}>
           <div className="mt-16">
             <p className="mb-6 text-center text-xs font-medium uppercase tracking-widest text-[var(--text-muted)]">
               Birlikte Çalıştığımız Markalar
@@ -316,7 +316,7 @@ export default function ReferanslarPage() {
         </ScrollReveal>
 
         {/* Featured Testimonial Slider — 3 cards at a time */}
-        <ScrollReveal delay={160}>
+        <ScrollReveal delay={0.2}>
           <div className="mt-20">
             <div className="mb-8 flex items-end justify-between">
               <div>
@@ -370,7 +370,7 @@ export default function ReferanslarPage() {
         </ScrollReveal>
 
         {/* Highlight quote */}
-        <ScrollReveal delay={100}>
+        <ScrollReveal delay={0.1}>
           <div className="mx-auto mt-20 max-w-3xl rounded-2xl border border-[var(--accent-primary)]/20 bg-[var(--bg-secondary)] p-10 text-center md:p-14">
             <Quote className="mx-auto mb-6 h-10 w-10 text-[var(--accent-primary)] opacity-40" />
             <p className="text-xl leading-relaxed text-[var(--text-secondary)] italic md:text-2xl">
@@ -410,7 +410,7 @@ export default function ReferanslarPage() {
 
           <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {TESTIMONIALS.map((t, i) => (
-              <ScrollReveal key={t.name} delay={i * 60}>
+              <ScrollReveal key={t.name} delay={i * 0.08}>
                 <TestimonialCard t={t} />
               </ScrollReveal>
             ))}
@@ -418,7 +418,7 @@ export default function ReferanslarPage() {
         </div>
 
         {/* CTA */}
-        <ScrollReveal delay={100}>
+        <ScrollReveal delay={0.1}>
           <div className="mt-20 rounded-2xl border border-[var(--border-default)] bg-[var(--bg-secondary)] p-10 text-center md:p-14">
             <h2 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-[var(--text-primary)] md:text-3xl">
               Sıradaki Başarı Hikayesi Sizin Olsun
