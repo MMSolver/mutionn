@@ -1,15 +1,28 @@
-import Link from "next/link";
-import { SITE_NAME, NAV_ITEMS, SERVICES } from "@/lib/constants";
+"use client";
 
-const COMPANY_LINKS = [
-  { label: "Hakkımızda", href: "/hakkimizda" },
-  { label: "Projeler", href: "/projeler" },
-  { label: "Referanslar", href: "/referanslar" },
-  { label: "Fiyatlandırma", href: "/fiyatlandirma" },
-  { label: "İş Ortaklığı", href: "/ortaklik" },
+import Link from "next/link";
+import { SITE_NAME } from "@/lib/constants";
+import { useTranslation } from "@/lib/useTranslation";
+
+const SERVICE_SLUGS = [
+  "siber-guvenlik",
+  "otomasyon",
+  "saas",
+  "yazilim",
+  "e-ticaret",
 ] as const;
 
+const COMPANY_HREFS = [
+  { key: "hakkimizda" as const, href: "/hakkimizda" },
+  { key: "projeler" as const, href: "/projeler" },
+  { key: "referanslar" as const, href: "/referanslar" },
+  { key: "fiyatlandirma" as const, href: "/fiyatlandirma" },
+  { key: "ortaklik" as const, href: "/ortaklik" },
+];
+
 export function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="border-t border-[var(--border-default)] bg-[var(--bg-secondary)]">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
@@ -23,24 +36,23 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
-              Dijital dönüşümün güvenli adresi. Siber güvenlik, otomasyon ve
-              yazılım çözümleriyle işinizi koruyun ve büyütün.
+              {t.footer.desc}
             </p>
           </div>
 
           {/* Hizmetler */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-[var(--text-muted)]">
-              Hizmetler
+              {t.footer.servicesTitle}
             </h3>
             <ul className="space-y-3">
-              {SERVICES.slice(0, 5).map((service) => (
-                <li key={service.slug}>
+              {SERVICE_SLUGS.map((slug, i) => (
+                <li key={slug}>
                   <Link
-                    href={`/hizmetler/${service.slug}`}
+                    href={`/hizmetler/${slug}`}
                     className="text-sm text-[var(--text-secondary)] transition-colors hover:text-[var(--accent-primary)]"
                   >
-                    {service.title}
+                    {t.services.items[i].title}
                   </Link>
                 </li>
               ))}
@@ -50,16 +62,16 @@ export function Footer() {
           {/* Şirket */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-[var(--text-muted)]">
-              Şirket
+              {t.footer.companyTitle}
             </h3>
             <ul className="space-y-3">
-              {COMPANY_LINKS.map((link) => (
+              {COMPANY_HREFS.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
                     className="text-sm text-[var(--text-secondary)] transition-colors hover:text-[var(--accent-primary)]"
                   >
-                    {link.label}
+                    {t.nav[link.key]}
                   </Link>
                 </li>
               ))}
@@ -69,17 +81,17 @@ export function Footer() {
           {/* İletişim */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-[var(--text-muted)]">
-              İletişim
+              {t.footer.contactTitle}
             </h3>
             <ul className="space-y-3 text-sm text-[var(--text-secondary)]">
               <li>info@mution.com.tr</li>
-              <li>İstanbul, Türkiye</li>
+              <li>{t.contact.info.locationVal}</li>
             </ul>
             <Link
               href="/iletisim"
               className="mt-6 inline-flex rounded-lg border border-[var(--accent-primary)] px-4 py-2 text-sm font-medium text-[var(--accent-primary)] transition-colors hover:bg-[var(--accent-primary)] hover:text-[var(--bg-primary)]"
             >
-              Bize Ulaşın
+              {t.footer.contactBtn}
             </Link>
           </div>
         </div>
@@ -87,15 +99,14 @@ export function Footer() {
         {/* Bottom */}
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-[var(--border-default)] pt-8 sm:flex-row">
           <p className="text-xs text-[var(--text-muted)]">
-            &copy; {new Date().getFullYear()} {SITE_NAME}. Tüm hakları
-            saklıdır.
+            &copy; {new Date().getFullYear()} {SITE_NAME}. {t.footer.rights}
           </p>
           <div className="flex gap-6">
             <Link
               href="/iletisim"
               className="text-xs text-[var(--text-muted)] transition-colors hover:text-[var(--text-secondary)]"
             >
-              İletişim
+              {t.nav.iletisim}
             </Link>
           </div>
         </div>

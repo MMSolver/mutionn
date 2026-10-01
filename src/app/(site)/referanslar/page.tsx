@@ -18,6 +18,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { useTranslation } from "@/lib/useTranslation";
 
 const BRANDS = [
   { name: "TechFlow Lojistik", sector: "Lojistik & Taşımacılık" },
@@ -137,21 +138,14 @@ const TESTIMONIALS = [
   },
 ];
 
-const STATS = [
-  { value: "50+", label: "Tamamlanan Proje" },
-  { value: "%98", label: "Müşteri Memnuniyeti" },
-  { value: "15+", label: "Aktif İş Ortağı" },
-  { value: "3+", label: "Yıllık Deneyim" },
-];
-
 function TestimonialCard({
-  t,
+  testimonial,
   featured = false,
 }: {
-  t: (typeof TESTIMONIALS)[number];
+  testimonial: (typeof TESTIMONIALS)[number];
   featured?: boolean;
 }) {
-  const Icon = t.icon;
+  const Icon = testimonial.icon;
   return (
     <div
       className={`flex h-full flex-col rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] transition-colors hover:border-[var(--accent-primary)]/30 ${
@@ -170,7 +164,7 @@ function TestimonialCard({
         <div className="flex items-center gap-2 rounded-md bg-[var(--accent-primary)]/10 px-2 py-1">
           <Icon className="h-3.5 w-3.5 text-[var(--accent-primary)]" />
           <span className="text-[10px] font-medium text-[var(--accent-primary)]">
-            {t.service}
+            {testimonial.service}
           </span>
         </div>
       </div>
@@ -180,13 +174,13 @@ function TestimonialCard({
           featured ? "text-base" : "text-sm"
         }`}
       >
-        &ldquo;{t.quote}&rdquo;
+        &ldquo;{testimonial.quote}&rdquo;
       </p>
 
       <div className="mt-3 mb-4">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--accent-primary)]/5 px-3 py-1 text-xs font-semibold text-[var(--accent-primary)]">
           <TrendingUp className="h-3 w-3" />
-          {t.metric}
+          {testimonial.metric}
         </span>
       </div>
 
@@ -196,16 +190,16 @@ function TestimonialCard({
             featured ? "h-11 w-11 text-base" : "h-9 w-9 text-sm"
           }`}
         >
-          {t.name.charAt(0)}
+          {testimonial.name.charAt(0)}
         </div>
         <div>
           <p
             className={`font-semibold text-[var(--text-primary)] ${featured ? "text-base" : "text-sm"}`}
           >
-            {t.name}
+            {testimonial.name}
           </p>
           <p className="text-xs text-[var(--text-muted)]">
-            {t.role}, {t.company}
+            {testimonial.role}, {testimonial.company}
           </p>
         </div>
       </div>
@@ -217,6 +211,7 @@ export default function ReferanslarPage() {
   const [slide, setSlide] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const totalSlides = Math.ceil(TESTIMONIALS.length / 3);
+  const { t } = useTranslation();
 
   const startAutoplay = useCallback(() => {
     if (intervalRef.current) clearInterval(intervalRef.current);
@@ -242,6 +237,13 @@ export default function ReferanslarPage() {
 
   const visibleCards = TESTIMONIALS.slice(slide * 3, slide * 3 + 3);
 
+  const STATS = [
+    { value: "50+", label: t.references.stats.projects },
+    { value: "%98", label: t.references.stats.satisfaction },
+    { value: "15+", label: t.references.stats.partners },
+    { value: "3+", label: t.references.stats.experience },
+  ];
+
   return (
     <div className="bg-[var(--bg-primary)] pt-24 pb-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -249,14 +251,13 @@ export default function ReferanslarPage() {
         <ScrollReveal>
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-              Referanslar
+              {t.references.badge}
             </p>
             <h1 className="mt-3 font-[family-name:var(--font-heading)] text-4xl font-bold tracking-tight text-[var(--text-primary)] md:text-5xl">
-              Güvenilir İş Ortaklıkları
+              {t.references.title}
             </h1>
             <p className="mt-4 text-lg text-[var(--text-secondary)]">
-              Farklı sektörlerden firmalarla başarılı projeler gerçekleştirdik.
-              İşte bazı müşterilerimizin hikayesi.
+              {t.references.desc}
             </p>
           </div>
         </ScrollReveal>
@@ -284,7 +285,7 @@ export default function ReferanslarPage() {
         <ScrollReveal delay={0.15}>
           <div className="mt-16">
             <p className="mb-6 text-center text-xs font-medium uppercase tracking-widest text-[var(--text-muted)]">
-              Birlikte Çalıştığımız Markalar
+              {t.references.brands}
             </p>
             <div className="relative overflow-hidden">
               <div className="absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-[var(--bg-primary)] to-transparent" />
@@ -315,30 +316,30 @@ export default function ReferanslarPage() {
           </div>
         </ScrollReveal>
 
-        {/* Featured Testimonial Slider — 3 cards at a time */}
+        {/* Featured Testimonial Slider */}
         <ScrollReveal delay={0.2}>
           <div className="mt-20">
             <div className="mb-8 flex items-end justify-between">
               <div>
                 <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-                  Müşteri Görüşleri
+                  {t.references.testimonialsBadge}
                 </p>
                 <h2 className="mt-2 font-[family-name:var(--font-heading)] text-2xl font-bold text-[var(--text-primary)] md:text-3xl">
-                  Onlar Ne Diyor?
+                  {t.references.testimonialsTitle}
                 </h2>
               </div>
               <div className="flex gap-2">
                 <button
                   onClick={prev}
                   className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border-default)] text-[var(--text-secondary)] transition-colors hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
-                  aria-label="Önceki"
+                  aria-label="Previous"
                 >
                   <ArrowLeft className="h-4 w-4" />
                 </button>
                 <button
                   onClick={next}
                   className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border-default)] text-[var(--text-secondary)] transition-colors hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
-                  aria-label="Sonraki"
+                  aria-label="Next"
                 >
                   <ArrowRight className="h-4 w-4" />
                 </button>
@@ -346,8 +347,8 @@ export default function ReferanslarPage() {
             </div>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3" key={slide}>
-              {visibleCards.map((t) => (
-                <TestimonialCard key={t.name} t={t} featured />
+              {visibleCards.map((testimonial) => (
+                <TestimonialCard key={testimonial.name} testimonial={testimonial} featured />
               ))}
             </div>
 
@@ -362,7 +363,7 @@ export default function ReferanslarPage() {
                       ? "w-10 bg-[var(--accent-primary)]"
                       : "w-2 bg-[var(--border-default)] hover:bg-[var(--text-muted)]"
                   }`}
-                  aria-label={`Sayfa ${i + 1}`}
+                  aria-label={`${i + 1}`}
                 />
               ))}
             </div>
@@ -397,21 +398,21 @@ export default function ReferanslarPage() {
           </div>
         </ScrollReveal>
 
-        {/* Full grid — all testimonials */}
+        {/* Full grid */}
         <div className="mt-20">
           <ScrollReveal>
             <h2 className="text-center font-[family-name:var(--font-heading)] text-2xl font-bold text-[var(--text-primary)]">
-              Tüm Referanslar
+              {t.references.allTitle}
             </h2>
             <p className="mx-auto mt-2 max-w-md text-center text-sm text-[var(--text-secondary)]">
-              Her sektörden müşterilerimizin deneyimlerini okuyun
+              {t.references.allDesc}
             </p>
           </ScrollReveal>
 
           <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {TESTIMONIALS.map((t, i) => (
-              <ScrollReveal key={t.name} delay={i * 0.08}>
-                <TestimonialCard t={t} />
+            {TESTIMONIALS.map((testimonial, i) => (
+              <ScrollReveal key={testimonial.name} delay={i * 0.08}>
+                <TestimonialCard testimonial={testimonial} />
               </ScrollReveal>
             ))}
           </div>
@@ -421,16 +422,16 @@ export default function ReferanslarPage() {
         <ScrollReveal delay={0.1}>
           <div className="mt-20 rounded-2xl border border-[var(--border-default)] bg-[var(--bg-secondary)] p-10 text-center md:p-14">
             <h2 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-[var(--text-primary)] md:text-3xl">
-              Sıradaki Başarı Hikayesi Sizin Olsun
+              {t.references.ctaTitle}
             </h2>
             <p className="mx-auto mt-4 max-w-lg text-[var(--text-secondary)]">
-              Projenizi birlikte değerlendirelim. İlk görüşme ücretsiz.
+              {t.references.ctaDesc}
             </p>
             <a
               href="/iletisim"
               className="mt-8 inline-flex items-center gap-2 rounded-lg bg-[var(--accent-primary)] px-8 py-3.5 text-base font-semibold text-[var(--bg-primary)] transition-colors hover:bg-[var(--accent-hover)]"
             >
-              Ücretsiz Danışmanlık Alın
+              {t.references.ctaButton}
             </a>
           </div>
         </ScrollReveal>

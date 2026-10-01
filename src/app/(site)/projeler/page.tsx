@@ -16,8 +16,9 @@ import {
   Zap,
   BarChart3,
 } from "lucide-react";
+import { useTranslation } from "@/lib/useTranslation";
 
-const CATEGORIES = ["Tümü", "Siber Güvenlik", "Yazılım", "E-Ticaret", "Otomasyon", "Mobil"];
+const CATEGORIES_TR = ["Tümü", "Siber Güvenlik", "Yazılım", "E-Ticaret", "Otomasyon", "Mobil"];
 
 const PROJECTS = [
   {
@@ -114,12 +115,18 @@ function CircuitPattern({ color }: { color: string }) {
 }
 
 export default function ProjelerPage() {
-  const [activeFilter, setActiveFilter] = useState("Tümü");
+  const { t } = useTranslation();
+  const [activeFilter, setActiveFilter] = useState<string>(t.projects.categories[0]);
+
+  const categoryMap: Record<string, string> = {};
+  CATEGORIES_TR.forEach((cat, i) => {
+    categoryMap[t.projects.categories[i]] = cat;
+  });
 
   const filtered =
-    activeFilter === "Tümü"
+    activeFilter === t.projects.categories[0]
       ? PROJECTS
-      : PROJECTS.filter((p) => p.category === activeFilter);
+      : PROJECTS.filter((p) => p.category === categoryMap[activeFilter]);
 
   return (
     <section className="pt-32 pb-24">
@@ -133,17 +140,17 @@ export default function ProjelerPage() {
             </span>
           </div>
           <h1 className="font-[family-name:var(--font-heading)] text-4xl font-bold text-[var(--text-primary)] md:text-5xl lg:text-6xl">
-            Başarı{" "}
-            <span className="text-[var(--accent-primary)]">Hikayeleri</span>
+            {t.projects.title}{" "}
+            <span className="text-[var(--accent-primary)]">{t.projects.titleAccent}</span>
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-lg text-[var(--text-secondary)]">
-            Her biri özenle tasarlanmış, ölçeklenebilir ve güvenli dijital çözümler.
+            {t.projects.desc}
           </p>
         </div>
 
         {/* Filter tabs */}
         <div className="mt-12 flex flex-wrap items-center justify-center gap-2">
-          {CATEGORIES.map((cat) => (
+          {t.projects.categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveFilter(cat)}
@@ -268,12 +275,12 @@ export default function ProjelerPage() {
                   <div className="mt-4 border-t border-[var(--border-default)]/50 pt-4">
                     <div className="flex items-center justify-between">
                       <div className="flex flex-wrap gap-1.5">
-                        {project.tech.map((t) => (
+                        {project.tech.map((tech) => (
                           <span
-                            key={t}
+                            key={tech}
                             className="rounded border border-[var(--border-default)]/50 bg-[var(--bg-primary)] px-2 py-0.5 font-mono text-[11px] text-[var(--text-muted)]"
                           >
-                            {t}
+                            {tech}
                           </span>
                         ))}
                       </div>
@@ -288,7 +295,7 @@ export default function ProjelerPage() {
         {/* Testimonials band */}
         <div className="mt-20">
           <p className="mb-8 text-center text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-            Müşteri Görüşleri
+            {t.projects.testimonials}
           </p>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {[
@@ -310,9 +317,9 @@ export default function ProjelerPage() {
                 quote:
                   "Güvenlik denetiminde kritik açıkları tespit edip hızla kapattı. Güvenle çalışabileceğiniz bir isim.",
               },
-            ].map((t) => (
+            ].map((review) => (
               <div
-                key={t.name}
+                key={review.name}
                 className="rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] p-6"
               >
                 <div className="mb-3 flex gap-1">
@@ -327,13 +334,13 @@ export default function ProjelerPage() {
                   ))}
                 </div>
                 <p className="text-sm leading-relaxed text-[var(--text-secondary)] italic">
-                  &ldquo;{t.quote}&rdquo;
+                  &ldquo;{review.quote}&rdquo;
                 </p>
                 <div className="mt-4 border-t border-[var(--border-default)] pt-4">
                   <p className="text-sm font-semibold text-[var(--text-primary)]">
-                    {t.name}
+                    {review.name}
                   </p>
-                  <p className="text-xs text-[var(--text-muted)]">{t.role}</p>
+                  <p className="text-xs text-[var(--text-muted)]">{review.role}</p>
                 </div>
               </div>
             ))}
@@ -347,16 +354,16 @@ export default function ProjelerPage() {
               <Layers size={24} className="text-[var(--accent-primary)]" />
             </div>
             <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-[var(--text-primary)]">
-              Sonraki Proje Sizinki Olsun
+              {t.projects.nextProject}
             </h3>
             <p className="mt-2 text-sm text-[var(--text-secondary)]">
-              Dijital hedeflerinizi birlikte gerçeğe dönüştürelim.
+              {t.projects.nextProjectDesc}
             </p>
             <Link
               href="/iletisim"
               className="mt-6 inline-flex items-center gap-2 rounded-lg bg-[var(--accent-primary)] px-8 py-3 text-sm font-semibold text-[var(--bg-primary)] transition-colors hover:bg-[var(--accent-hover)]"
             >
-              Projenizi Konuşalım <ArrowRight size={14} />
+              {t.projects.nextProjectBtn} <ArrowRight size={14} />
             </Link>
           </div>
         </div>

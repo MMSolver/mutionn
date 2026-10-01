@@ -2,22 +2,24 @@
 
 import { useState } from "react";
 import { Mail, MessageSquare, MapPin, Send } from "lucide-react";
+import { useTranslation } from "@/lib/useTranslation";
 
 export default function IletisimPage() {
   const [submitted, setSubmitted] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <section className="pt-32 pb-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-            İletişim
+            {t.contact.badge}
           </p>
           <h1 className="mt-2 font-[family-name:var(--font-heading)] text-4xl font-bold text-[var(--text-primary)] md:text-5xl">
-            Bize Ulaşın
+            {t.contact.title}
           </h1>
           <p className="mt-4 text-lg text-[var(--text-secondary)]">
-            Projeniz hakkında konuşmak veya teklif almak için formu doldurun.
+            {t.contact.desc}
           </p>
         </div>
 
@@ -30,7 +32,7 @@ export default function IletisimPage() {
               </div>
               <div>
                 <h3 className="font-semibold text-[var(--text-primary)]">
-                  E-posta
+                  {t.contact.info.email}
                 </h3>
                 <p className="text-sm text-[var(--text-secondary)]">
                   info@mution.com.tr
@@ -44,10 +46,10 @@ export default function IletisimPage() {
               </div>
               <div>
                 <h3 className="font-semibold text-[var(--text-primary)]">
-                  Hızlı İletişim
+                  {t.contact.info.quick}
                 </h3>
                 <p className="text-sm text-[var(--text-secondary)]">
-                  Formu doldurun, aynı gün dönüş yapalım
+                  {t.contact.info.quickDesc}
                 </p>
               </div>
             </div>
@@ -58,10 +60,10 @@ export default function IletisimPage() {
               </div>
               <div>
                 <h3 className="font-semibold text-[var(--text-primary)]">
-                  Adres
+                  {t.contact.info.address}
                 </h3>
                 <p className="text-sm text-[var(--text-secondary)]">
-                  İstanbul, Türkiye
+                  {t.contact.info.locationVal}
                 </p>
               </div>
             </div>
@@ -75,10 +77,10 @@ export default function IletisimPage() {
                   <Send size={32} className="text-[var(--success)]" />
                 </div>
                 <h3 className="text-xl font-semibold text-[var(--text-primary)]">
-                  Mesajınız Gönderildi
+                  {t.contact.form.success}
                 </h3>
                 <p className="mt-2 text-sm text-[var(--text-secondary)]">
-                  En kısa sürede size dönüş yapacağız.
+                  {t.contact.form.successDesc}
                 </p>
               </div>
             ) : (
@@ -92,18 +94,18 @@ export default function IletisimPage() {
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                   <div>
                     <label className="mb-2 block text-sm font-medium text-[var(--text-primary)]">
-                      Ad Soyad
+                      {t.contact.form.name}
                     </label>
                     <input
                       type="text"
                       required
                       className="w-full rounded-lg border border-[var(--border-default)] bg-[var(--bg-primary)] px-4 py-3 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-primary)]"
-                      placeholder="Adınız Soyadınız"
+                      placeholder={t.contact.form.name}
                     />
                   </div>
                   <div>
                     <label className="mb-2 block text-sm font-medium text-[var(--text-primary)]">
-                      E-posta
+                      {t.contact.form.email}
                     </label>
                     <input
                       type="email"
@@ -116,28 +118,25 @@ export default function IletisimPage() {
 
                 <div>
                   <label className="mb-2 block text-sm font-medium text-[var(--text-primary)]">
-                    Hizmet
+                    {t.contact.form.service}
                   </label>
                   <select className="w-full rounded-lg border border-[var(--border-default)] bg-[var(--bg-primary)] px-4 py-3 text-sm text-[var(--text-primary)] focus:border-[var(--accent-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-primary)]">
-                    <option value="">Hizmet seçin</option>
-                    <option>Siber Güvenlik</option>
-                    <option>Otomasyon Çözümleri</option>
-                    <option>SaaS Ürün Geliştirme</option>
-                    <option>Özel Yazılım Geliştirme</option>
-                    <option>E-Ticaret Çözümleri</option>
-                    <option>Mobil Uygulama Geliştirme</option>
+                    <option value="">{t.contact.form.selectService}</option>
+                    {t.services.items.map((s) => (
+                      <option key={s.title}>{s.title}</option>
+                    ))}
                   </select>
                 </div>
 
                 <div>
                   <label className="mb-2 block text-sm font-medium text-[var(--text-primary)]">
-                    Mesaj
+                    {t.contact.form.message}
                   </label>
                   <textarea
                     required
                     rows={5}
                     className="w-full resize-none rounded-lg border border-[var(--border-default)] bg-[var(--bg-primary)] px-4 py-3 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-primary)]"
-                    placeholder="Projeniz hakkında kısaca bilgi verin..."
+                    placeholder={t.contact.form.messagePlaceholder}
                   />
                 </div>
 
@@ -145,7 +144,7 @@ export default function IletisimPage() {
                   type="submit"
                   className="w-full rounded-lg bg-[var(--accent-primary)] px-6 py-3 text-sm font-semibold text-[var(--bg-primary)] transition-colors hover:bg-[var(--accent-hover)]"
                 >
-                  Gönder
+                  {t.contact.form.submit}
                 </button>
               </form>
             )}

@@ -3,15 +3,26 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { NAV_ITEMS, SITE_NAME } from "@/lib/constants";
+import { SITE_NAME } from "@/lib/constants";
+import { useTranslation } from "@/lib/useTranslation";
+
+const NAV_HREFS = [
+  { key: "hizmetler" as const, href: "/hizmetler" },
+  { key: "projeler" as const, href: "/projeler" },
+  { key: "referanslar" as const, href: "/referanslar" },
+  { key: "hakkimizda" as const, href: "/hakkimizda" },
+  { key: "fiyatlandirma" as const, href: "/fiyatlandirma" },
+  { key: "ortaklik" as const, href: "/ortaklik" },
+];
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const pathname = usePathname();
+  const { t, locale, setLocale } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -22,6 +33,8 @@ export function Navbar() {
   useEffect(() => {
     setIsMobileOpen(false);
   }, [pathname]);
+
+  const toggleLocale = () => setLocale(locale === "tr" ? "en" : "tr");
 
   return (
     <header
@@ -42,8 +55,8 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden items-center gap-8 lg:flex">
-          {NAV_ITEMS.map((item) => (
+        <div className="hidden items-center gap-7 lg:flex">
+          {NAV_HREFS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -54,18 +67,28 @@ export function Navbar() {
                   : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
               )}
             >
-              {item.label}
+              {t.nav[item.key]}
             </Link>
           ))}
         </div>
 
-        {/* CTA + Mobile Toggle */}
-        <div className="flex items-center gap-4">
+        {/* Lang + CTA + Mobile Toggle */}
+        <div className="flex items-center gap-3">
+          {/* Language switcher */}
+          <button
+            onClick={toggleLocale}
+            className="flex items-center gap-1.5 rounded-lg border border-[var(--border-default)] px-2.5 py-1.5 text-xs font-medium text-[var(--text-secondary)] transition-colors hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
+            aria-label="Change language"
+          >
+            <Globe className="h-3.5 w-3.5" />
+            {locale === "tr" ? "EN" : "TR"}
+          </button>
+
           <Link
             href="/iletisim"
             className="hidden rounded-lg bg-[var(--accent-primary)] px-5 py-2.5 text-sm font-semibold text-[var(--bg-primary)] transition-colors hover:bg-[var(--accent-hover)] lg:inline-flex"
           >
-            İletişim
+            {t.nav.iletisim}
           </Link>
 
           <button
@@ -90,7 +113,7 @@ export function Navbar() {
             className="overflow-hidden border-b border-[var(--border-default)] bg-[var(--bg-primary)]/95 backdrop-blur-xl lg:hidden"
           >
             <div className="space-y-1 px-6 pb-6 pt-2">
-              {NAV_ITEMS.map((item) => (
+              {NAV_HREFS.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
@@ -101,14 +124,14 @@ export function Navbar() {
                       : "text-[var(--text-secondary)] hover:bg-[var(--bg-secondary)] hover:text-[var(--text-primary)]"
                   )}
                 >
-                  {item.label}
+                  {t.nav[item.key]}
                 </Link>
               ))}
               <Link
                 href="/iletisim"
                 className="mt-4 block rounded-lg bg-[var(--accent-primary)] px-4 py-3 text-center text-base font-semibold text-[var(--bg-primary)] transition-colors hover:bg-[var(--accent-hover)]"
               >
-                İletişim
+                {t.nav.iletisim}
               </Link>
             </div>
           </motion.div>

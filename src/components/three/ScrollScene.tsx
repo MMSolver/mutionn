@@ -3,6 +3,7 @@
 import { useRef, useEffect, useMemo } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
+import { useTranslation } from "@/lib/useTranslation";
 import {
   EffectComposer,
   Bloom,
@@ -647,6 +648,7 @@ function Scene() {
 // ─── Export ───
 export function ScrollScene() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -701,30 +703,29 @@ export function ScrollScene() {
           <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
             <div className="max-w-2xl">
               <p className="mb-4 text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-                Dijital Dönüşümün Güvenli Adresi
+                {t.hero.badge}
               </p>
               <h1 className="font-[family-name:var(--font-heading)] text-5xl font-bold leading-[1.1] tracking-tight text-[var(--text-primary)] md:text-6xl lg:text-7xl">
-                Dijital Altyapınızı{" "}
+                {t.hero.title1}{" "}
                 <span className="text-[var(--accent-primary)]">
-                  Güçlendiriyoruz
+                  {t.hero.titleAccent}
                 </span>
               </h1>
               <p className="mt-6 max-w-lg text-lg leading-relaxed text-[var(--text-secondary)]">
-                Siber güvenlik, otomasyon ve yazılım çözümleriyle işinizi
-                koruyun ve büyütün.
+                {t.hero.desc}
               </p>
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                 <a
                   href="/iletisim"
                   className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--accent-primary)] px-7 py-3.5 text-base font-semibold text-[var(--bg-primary)] transition-colors hover:bg-[var(--accent-hover)]"
                 >
-                  Projenizi Başlatın
+                  {t.hero.cta1}
                 </a>
                 <a
                   href="/hizmetler"
                   className="inline-flex items-center justify-center rounded-lg border border-[var(--border-hover)] px-7 py-3.5 text-base font-semibold text-[var(--text-primary)] transition-colors hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
                 >
-                  Hizmetlerimiz
+                  {t.hero.cta2}
                 </a>
               </div>
             </div>
@@ -736,26 +737,19 @@ export function ScrollScene() {
           <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
             <div className="ml-auto max-w-xl text-right">
               <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-                Çözümlerimiz
+                {t.heroServices.title}
               </p>
               <h2 className="mt-2 font-[family-name:var(--font-heading)] text-4xl font-bold text-[var(--text-primary)]">
-                6 Alanda Uzmanlık
+                {t.heroServices.subtitle}
               </h2>
               <div className="mt-8 space-y-3">
-                {[
-                  "Siber Güvenlik",
-                  "Otomasyon Çözümleri",
-                  "SaaS Ürün Geliştirme",
-                  "Özel Yazılım Geliştirme",
-                  "E-Ticaret Çözümleri",
-                  "Mobil Uygulama Geliştirme",
-                ].map((s) => (
+                {t.services.items.map((s) => (
                   <div
-                    key={s}
+                    key={s.title}
                     className="rounded-lg border border-[var(--border-default)]/50 bg-[var(--bg-primary)]/60 px-5 py-3 text-right backdrop-blur-md"
                   >
                     <span className="text-sm font-medium text-[var(--text-primary)]">
-                      {s}
+                      {s.title}
                     </span>
                   </div>
                 ))}
@@ -769,15 +763,15 @@ export function ScrollScene() {
           <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
             <div className="mx-auto max-w-3xl text-center">
               <h2 className="font-[family-name:var(--font-heading)] text-4xl font-bold text-[var(--text-primary)]">
-                Rakamlarla{" "}
+                {t.heroStats.title}{" "}
                 <span className="text-[var(--accent-primary)]">Mution</span>
               </h2>
               <div className="mt-12 grid grid-cols-2 gap-6 md:grid-cols-4">
                 {[
-                  { value: "50+", label: "Proje" },
-                  { value: "99.9%", label: "Uptime" },
-                  { value: "Hızlı", label: "Destek" },
-                  { value: "15+", label: "Müşteri" },
+                  { value: "50+", label: t.heroStats.projects },
+                  { value: "99.9%", label: t.heroStats.uptime },
+                  { value: t.heroStats.supportVal, label: t.heroStats.support },
+                  { value: "15+", label: t.heroStats.clients },
                 ].map((stat) => (
                   <div
                     key={stat.label}
@@ -801,10 +795,10 @@ export function ScrollScene() {
           <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
             <div className="mx-auto max-w-4xl">
               <p className="text-center text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-                Referanslar
+                {t.heroTestimonials.badge}
               </p>
               <h2 className="mt-2 text-center font-[family-name:var(--font-heading)] text-4xl font-bold text-[var(--text-primary)]">
-                Müşterilerimiz Ne Diyor?
+                {t.heroTestimonials.title}
               </h2>
 
               <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -827,9 +821,9 @@ export function ScrollScene() {
                     quote:
                       "Güvenlik denetiminde kritik açıkları tespit edip hızla kapattı. Güvenle çalışabileceğiniz bir isim.",
                   },
-                ].map((t) => (
+                ].map((review) => (
                   <div
-                    key={t.name}
+                    key={review.name}
                     className="flex flex-col rounded-xl border border-[var(--border-default)]/50 bg-[var(--bg-primary)]/60 p-6 backdrop-blur-md"
                   >
                     <div className="mb-3 flex gap-1">
@@ -844,14 +838,14 @@ export function ScrollScene() {
                       ))}
                     </div>
                     <p className="flex-1 text-sm leading-relaxed text-[var(--text-secondary)] italic">
-                      &ldquo;{t.quote}&rdquo;
+                      &ldquo;{review.quote}&rdquo;
                     </p>
                     <div className="mt-4 border-t border-[var(--border-default)]/30 pt-4">
                       <p className="text-sm font-semibold text-[var(--text-primary)]">
-                        {t.name}
+                        {review.name}
                       </p>
                       <p className="text-xs text-[var(--text-muted)]">
-                        {t.role}
+                        {review.role}
                       </p>
                     </div>
                   </div>
@@ -866,17 +860,16 @@ export function ScrollScene() {
           <div className="mx-auto w-full max-w-7xl px-6 text-center lg:px-8">
             <div className="mx-auto max-w-2xl rounded-2xl border border-[var(--border-default)]/50 bg-[var(--bg-primary)]/70 p-12 backdrop-blur-xl">
               <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-[var(--text-primary)] md:text-4xl">
-                Projenizi Hayata Geçirelim
+                {t.heroCta.title}
               </h2>
               <p className="mt-4 text-lg text-[var(--text-secondary)]">
-                Dijital hedeflerinizi birlikte belirleyelim. İlk görüşme
-                ücretsiz.
+                {t.heroCta.desc}
               </p>
               <a
                 href="/iletisim"
                 className="mt-8 inline-flex items-center gap-2 rounded-lg bg-[var(--accent-primary)] px-8 py-4 text-base font-semibold text-[var(--bg-primary)] transition-colors hover:bg-[var(--accent-hover)]"
               >
-                Ücretsiz Danışmanlık Alın
+                {t.heroCta.button}
               </a>
             </div>
           </div>

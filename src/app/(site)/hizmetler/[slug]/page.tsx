@@ -1,7 +1,6 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, CheckCircle } from "lucide-react";
 import { SERVICES } from "@/lib/constants";
+import { ServiceDetailContent } from "@/components/ServiceDetailContent";
 
 const SERVICE_DETAILS: Record<
   string,
@@ -135,94 +134,17 @@ export default async function HizmetDetayPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const service = SERVICES.find((s) => s.slug === slug);
-  if (!service) notFound();
+  const serviceIndex = SERVICES.findIndex((s) => s.slug === slug);
+  if (serviceIndex === -1) notFound();
 
   const details = SERVICE_DETAILS[slug];
 
   return (
-    <section className="pt-32 pb-24">
-      <div className="mx-auto max-w-4xl px-6 lg:px-8">
-        <Link
-          href="/hizmetler"
-          className="mb-8 inline-flex items-center gap-2 text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--accent-primary)]"
-        >
-          <ArrowLeft size={16} />
-          Tüm Hizmetler
-        </Link>
-
-        <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-          Hizmet Detayı
-        </p>
-        <h1 className="mt-2 font-[family-name:var(--font-heading)] text-4xl font-bold text-[var(--text-primary)] md:text-5xl">
-          {service.title}
-        </h1>
-        <p className="mt-4 text-lg text-[var(--text-secondary)]">
-          {service.description}
-        </p>
-
-        {details && (
-          <>
-            {/* Features */}
-            <div className="mt-16">
-              <h2 className="mb-6 font-[family-name:var(--font-heading)] text-2xl font-bold text-[var(--text-primary)]">
-                Ne Sunuyoruz
-              </h2>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                {details.features.map((feature) => (
-                  <div
-                    key={feature}
-                    className="flex items-start gap-3 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)] p-4"
-                  >
-                    <CheckCircle
-                      size={20}
-                      className="mt-0.5 shrink-0 text-[var(--accent-primary)]"
-                    />
-                    <span className="text-sm text-[var(--text-secondary)]">
-                      {feature}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Process */}
-            <div className="mt-16">
-              <h2 className="mb-6 font-[family-name:var(--font-heading)] text-2xl font-bold text-[var(--text-primary)]">
-                Çalışma Sürecimiz
-              </h2>
-              <div className="space-y-4">
-                {details.process.map((step, i) => (
-                  <div key={step} className="flex items-center gap-4">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--accent-primary)] text-sm font-bold text-[var(--bg-primary)]">
-                      {i + 1}
-                    </span>
-                    <span className="text-[var(--text-secondary)]">
-                      {step}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </>
-        )}
-
-        {/* CTA */}
-        <div className="mt-20 rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] p-8 text-center">
-          <h3 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-[var(--text-primary)]">
-            Size Nasıl Yardımcı Olabiliriz?
-          </h3>
-          <p className="mt-2 text-[var(--text-secondary)]">
-            İhtiyacınızı dinleyelim ve size en uygun çözümü birlikte belirleyelim. İlk görüşme ücretsiz.
-          </p>
-          <Link
-            href="/iletisim"
-            className="mt-6 inline-flex rounded-lg bg-[var(--accent-primary)] px-6 py-3 text-sm font-semibold text-[var(--bg-primary)] transition-colors hover:bg-[var(--accent-hover)]"
-          >
-            İletişime Geçin
-          </Link>
-        </div>
-      </div>
-    </section>
+    <ServiceDetailContent
+      slug={slug}
+      serviceIndex={serviceIndex}
+      features={details?.features ?? []}
+      process={details?.process ?? []}
+    />
   );
 }

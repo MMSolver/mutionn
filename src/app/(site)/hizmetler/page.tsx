@@ -13,6 +13,7 @@ import {
 import type { LucideIcon } from "lucide-react";
 import { SERVICES } from "@/lib/constants";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { useTranslation } from "@/lib/useTranslation";
 
 const ICON_MAP: Record<string, LucideIcon> = {
   Shield,
@@ -24,19 +25,21 @@ const ICON_MAP: Record<string, LucideIcon> = {
 };
 
 export default function HizmetlerPage() {
+  const { t } = useTranslation();
+
   return (
     <section className="pt-32 pb-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <ScrollReveal>
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-              Çözümlerimiz
+              {t.services.badge}
             </p>
             <h1 className="mt-2 font-[family-name:var(--font-heading)] text-4xl font-bold text-[var(--text-primary)] md:text-5xl">
-              Hizmetlerimiz
+              {t.services.title}
             </h1>
             <p className="mt-4 text-lg text-[var(--text-secondary)]">
-              İhtiyacınıza özel, uçtan uca dijital çözümler sunuyoruz.
+              {t.services.desc}
             </p>
           </div>
         </ScrollReveal>
@@ -59,13 +62,13 @@ export default function HizmetlerPage() {
                     )}
                   </div>
                   <h2 className="mb-3 text-xl font-semibold text-[var(--text-primary)]">
-                    {service.title}
+                    {t.services.items[i].title}
                   </h2>
                   <p className="mb-4 flex-1 text-sm leading-relaxed text-[var(--text-secondary)]">
-                    {service.description}
+                    {t.services.items[i].desc}
                   </p>
                   <span className="inline-flex items-center gap-1 text-sm font-medium text-[var(--accent-primary)] transition-transform group-hover:translate-x-1">
-                    Detayları İncele <ArrowRight size={14} />
+                    {t.services.detailsCta} <ArrowRight size={14} />
                   </span>
                 </Link>
               </ScrollReveal>
