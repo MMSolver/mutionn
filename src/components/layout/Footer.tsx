@@ -4,6 +4,7 @@ import { SITE_NAME, NAV_ITEMS, SERVICES } from "@/lib/constants";
 const COMPANY_LINKS = [
   { label: "Hakkımızda", href: "/hakkimizda" },
   { label: "Projeler", href: "/projeler" },
+  { label: "Referanslar", href: "/referanslar" },
   { label: "Fiyatlandırma", href: "/fiyatlandirma" },
 ] as const;
 

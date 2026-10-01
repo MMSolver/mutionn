@@ -109,6 +109,20 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--accent-muted);
 }
 
+/* ─── Brand scroll animation ─── */
+@keyframes scroll-x {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-scroll-x {
+  animation: scroll-x 30s linear infinite;
+}
+
+.animate-scroll-x:hover {
+  animation-play-state: paused;
+}
+
 /* ─── Reduced Motion ─── */
 @media (prefers-reduced-motion: reduce) {
   *,
