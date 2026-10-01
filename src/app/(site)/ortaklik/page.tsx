@@ -70,6 +70,7 @@ const WHO = [
   "İş danışmanları ve muhasebeciler",
   "Sektörel satış temsilcileri",
   "Geniş iş ağına sahip profesyoneller",
+  "Sosyal çevresi geniş, işletme sahipleriyle bağlantılı kişiler",
 ];
 
 export default function OrtaklikPage() {
@@ -170,9 +171,10 @@ export default function OrtaklikPage() {
                   İş Ağınızı Gelire Dönüştürün
                 </h2>
                 <p className="mt-4 text-sm leading-relaxed text-[var(--text-secondary)]">
-                  Teknik bilgi gerekmez. İşletmelerle bağlantınız varsa ve
-                  dijital çözüm ihtiyaçlarını fark edebiliyorsanız, bu program
-                  tam size göre.
+                  Teknik bilgi gerekmez. İster bir sektör profesyoneli olun,
+                  ister geniş bir sosyal çevreniz olsun — tanıdığınız
+                  işletmelerin dijital ihtiyaçlarını fark edebiliyorsanız, bu
+                  program tam size göre.
                 </p>
               </div>
               <ul className="space-y-3">
