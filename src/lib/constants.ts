@@ -56,4 +56,11 @@ export const SERVICES = [
       "iOS ve Android için profesyonel mobil uygulamalar geliştiriyoruz. Müşterilerinize her yerden ulaşın.",
     icon: "Smartphone",
   },
+  {
+    title: "Dijital Reklam Yönetimi",
+    slug: "dijital-reklam",
+    description:
+      "Meta, TikTok ve Google Ads platformlarında veri odaklı reklam kampanyaları yönetiyoruz. Sektörünüze özel stratejiyle bütçenizi en verimli şekilde kullanın.",
+    icon: "Target",
+  },
 ] as const;

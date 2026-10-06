@@ -69,6 +69,10 @@ export const t = {
           title: "Mobil Uygulama Geliştirme",
           desc: "iOS ve Android için profesyonel mobil uygulamalar geliştiriyoruz. Müşterilerinize her yerden ulaşın.",
         },
+        {
+          title: "Dijital Reklam Yönetimi",
+          desc: "Meta, TikTok ve Google Ads platformlarında veri odaklı reklam kampanyaları yönetiyoruz. Sektörünüze özel stratejiyle bütçenizi en verimli şekilde kullanın.",
+        },
       ],
     },
     serviceDetail: {
@@ -325,6 +329,10 @@ export const t = {
         {
           title: "Mobile App Development",
           desc: "We develop professional mobile apps for iOS and Android. Reach your customers from anywhere.",
+        },
+        {
+          title: "Digital Advertising",
+          desc: "We manage data-driven ad campaigns on Meta, TikTok, and Google Ads platforms. Maximize your budget with industry-specific strategies.",
         },
       ],
     },

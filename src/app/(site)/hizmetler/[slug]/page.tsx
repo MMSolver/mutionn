@@ -108,6 +108,23 @@ const SERVICE_DETAILS: Record<
       "Mağaza onay sürecini yönetiyor ve uygulamayı yayına alıyoruz",
     ],
   },
+  "dijital-reklam": {
+    features: [
+      "Meta (Facebook & Instagram) reklam kampanyası oluşturma ve yönetimi",
+      "TikTok Ads ile genç kitleye ulaşan video reklam stratejileri",
+      "Google Ads arama ve görüntülü reklam kampanyaları",
+      "Reklam performans analizi ve detaylı raporlama",
+      "Sektörünüze özel hedef kitle analizi ve segmentasyon",
+      "A/B test ile reklam içeriklerini sürekli optimize etme",
+    ],
+    process: [
+      "Sektörünüzü ve rakiplerinizi analiz ediyor, hedef kitlenizi tanımlıyoruz",
+      "Platforma özel reklam stratejisi ve bütçe planı oluşturuyoruz",
+      "Reklam görselleri ve metinlerini hazırlayıp kampanyaları başlatıyoruz",
+      "Verileri günlük takip ediyor, performansı artırmak için optimize ediyoruz",
+      "Aylık detaylı raporla sonuçları paylaşıyor, stratejiyi güncelliyoruz",
+    ],
+  },
 };
 
 export function generateStaticParams() {

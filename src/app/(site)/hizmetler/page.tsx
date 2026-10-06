@@ -8,6 +8,7 @@ import {
   Code,
   ShoppingCart,
   Smartphone,
+  Target,
   ArrowRight,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -22,6 +23,7 @@ const ICON_MAP: Record<string, LucideIcon> = {
   Code,
   ShoppingCart,
   Smartphone,
+  Target,
 };
 
 export default function HizmetlerPage() {
