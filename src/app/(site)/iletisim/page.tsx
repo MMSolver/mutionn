@@ -7,6 +7,7 @@ import { useTranslation } from "@/lib/useTranslation";
 
 export default function IletisimPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
 
   return (
@@ -86,9 +87,26 @@ export default function IletisimPage() {
               </div>
             ) : (
               <form
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
-                  setSubmitted(true);
+                  setLoading(true);
+                  const form = e.currentTarget;
+                  const formData = new FormData(form);
+                  try {
+                    const res = await fetch("/api/contact", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        name: formData.get("name"),
+                        email: formData.get("email"),
+                        service: formData.get("service"),
+                        message: formData.get("message"),
+                      }),
+                    });
+                    if (res.ok) setSubmitted(true);
+                  } finally {
+                    setLoading(false);
+                  }
                 }}
                 className="space-y-6"
               >
@@ -99,6 +117,7 @@ export default function IletisimPage() {
                     </label>
                     <input
                       type="text"
+                      name="name"
                       required
                       className="w-full rounded-lg border border-[var(--border-default)] bg-[var(--bg-primary)] px-4 py-3 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-primary)]"
                       placeholder={t.contact.form.name}
@@ -110,6 +129,7 @@ export default function IletisimPage() {
                     </label>
                     <input
                       type="email"
+                      name="email"
                       required
                       className="w-full rounded-lg border border-[var(--border-default)] bg-[var(--bg-primary)] px-4 py-3 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-primary)]"
                       placeholder="ornek@email.com"
@@ -121,7 +141,7 @@ export default function IletisimPage() {
                   <label className="mb-2 block text-sm font-medium text-[var(--text-primary)]">
                     {t.contact.form.service}
                   </label>
-                  <select className="w-full rounded-lg border border-[var(--border-default)] bg-[var(--bg-primary)] px-4 py-3 text-sm text-[var(--text-primary)] focus:border-[var(--accent-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-primary)]">
+                  <select name="service" className="w-full rounded-lg border border-[var(--border-default)] bg-[var(--bg-primary)] px-4 py-3 text-sm text-[var(--text-primary)] focus:border-[var(--accent-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-primary)]">
                     <option value="">{t.contact.form.selectService}</option>
                     {t.services.items.map((s) => (
                       <option key={s.title}>{s.title}</option>
@@ -134,6 +154,7 @@ export default function IletisimPage() {
                     {t.contact.form.message}
                   </label>
                   <textarea
+                    name="message"
                     required
                     rows={5}
                     className="w-full resize-none rounded-lg border border-[var(--border-default)] bg-[var(--bg-primary)] px-4 py-3 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-primary)]"
@@ -143,9 +164,10 @@ export default function IletisimPage() {
 
                 <button
                   type="submit"
-                  className="w-full rounded-lg bg-[var(--accent-primary)] px-6 py-3 text-sm font-semibold text-[var(--bg-primary)] transition-colors hover:bg-[var(--accent-hover)]"
+                  disabled={loading}
+                  className="w-full rounded-lg bg-[var(--accent-primary)] px-6 py-3 text-sm font-semibold text-[var(--bg-primary)] transition-colors hover:bg-[var(--accent-hover)] disabled:opacity-50"
                 >
-                  {t.contact.form.submit}
+                  {loading ? "Gönderiliyor..." : t.contact.form.submit}
                 </button>
               </form>
             )}
