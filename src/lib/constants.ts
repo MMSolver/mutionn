@@ -9,58 +9,57 @@ export const NAV_ITEMS = [
   { label: "Projeler", href: "/projeler" },
   { label: "Referanslar", href: "/referanslar" },
   { label: "Hakkımızda", href: "/hakkimizda" },
-  { label: "Fiyatlandırma", href: "/fiyatlandirma" },
   { label: "İş Ortaklığı", href: "/ortaklik" },
 ] as const;
 
 export const SERVICES = [
   {
-    title: "Siber Güvenlik",
-    slug: "siber-guvenlik",
+    title: "Dijital Reklam Yönetimi",
+    slug: "dijital-reklam",
     description:
-      "İşletmenizi dijital tehditlere karşı koruyoruz. Güvenlik açıklarını tespit ediyor, sürekli izleme ile riskleri minimize ediyoruz.",
-    icon: "Shield",
-  },
-  {
-    title: "Otomasyon Çözümleri",
-    slug: "otomasyon",
-    description:
-      "Tekrarlayan iş süreçlerinizi otomatikleştiriyoruz. Zamandan tasarruf edin, hata oranını sıfıra indirin, ekibinizi stratejik işlere odaklayın.",
-    icon: "Cog",
-  },
-  {
-    title: "SaaS Ürün Geliştirme",
-    slug: "saas",
-    description:
-      "Fikrinizi ölçeklenebilir bir bulut ürününe dönüştürüyoruz. Abonelik yönetimi, kullanıcı paneli ve analitik dahil.",
-    icon: "Cloud",
-  },
-  {
-    title: "Özel Yazılım Geliştirme",
-    slug: "yazilim",
-    description:
-      "İşletmenize özel web uygulamaları ve yönetim panelleri geliştiriyoruz. Tam size uygun, hızlı ve güvenli çözümler.",
-    icon: "Code",
+      "Instagram, Facebook, TikTok ve Google'da müşteri bulan reklam kampanyaları kuruyoruz. Bütçeniz nereye gidiyor, kaç kişi geldi, kaçı müşteri oldu — her şeyi raporluyoruz.",
+    icon: "Target",
   },
   {
     title: "E-Ticaret Çözümleri",
     slug: "e-ticaret",
     description:
-      "Online satış altyapınızı kuruyoruz. Ödeme sistemleri, stok yönetimi ve müşteri deneyimi optimizasyonu ile satışlarınızı artırın.",
+      "İnternetten satış yapmak istiyorsanız mağazanızı kuruyoruz. Ödeme alma, kargo takibi, stok yönetimi — hepsi hazır, siz sadece ürünlerinizi ekleyin.",
     icon: "ShoppingCart",
+  },
+  {
+    title: "Özel Yazılım Geliştirme",
+    slug: "yazilim",
+    description:
+      "Excel'le yönettiğiniz işleri size özel bir yazılıma taşıyoruz. Müşteri takibi, sipariş yönetimi, raporlama — işinize özel, her cihazdan erişilebilir.",
+    icon: "Code",
+  },
+  {
+    title: "Otomasyon Çözümleri",
+    slug: "otomasyon",
+    description:
+      "Her gün elle yaptığınız tekrarlayan işleri otomatik hale getiriyoruz. Fatura kesimi, stok uyarısı, müşteri bildirimi — sistem sizin yerinize çalışsın.",
+    icon: "Cog",
   },
   {
     title: "Mobil Uygulama Geliştirme",
     slug: "mobil-uygulama",
     description:
-      "iOS ve Android için profesyonel mobil uygulamalar geliştiriyoruz. Müşterilerinize her yerden ulaşın.",
+      "Müşterilerinizin telefonundan sipariş vermesini, randevu almasını veya hesabını yönetmesini istiyorsanız — iPhone ve Android için uygulama yapıyoruz.",
     icon: "Smartphone",
   },
   {
-    title: "Dijital Reklam Yönetimi",
-    slug: "dijital-reklam",
+    title: "Siber Güvenlik",
+    slug: "siber-guvenlik",
     description:
-      "Meta, TikTok ve Google Ads platformlarında veri odaklı reklam kampanyaları yönetiyoruz. Sektörünüze özel stratejiyle bütçenizi en verimli şekilde kullanın.",
-    icon: "Target",
+      "Şirket verilerinizi ve müşteri bilgilerinizi koruma altına alıyoruz. Güvenlik açıklarını tespit edip kapatıyor, sisteminizi 7/24 izliyoruz.",
+    icon: "Shield",
+  },
+  {
+    title: "SaaS Ürün Geliştirme",
+    slug: "saas",
+    description:
+      "Kendi yazılım ürününüzü çıkarmak istiyorsanız — fikrinizi abonelik modelli, ölçeklenebilir bir bulut ürününe dönüştürüyoruz.",
+    icon: "Cloud",
   },
 ] as const;

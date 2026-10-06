@@ -5,7 +5,6 @@ export const t = {
       projeler: "Projeler",
       referanslar: "Referanslar",
       hakkimizda: "Hakkımızda",
-      fiyatlandirma: "Fiyatlandırma",
       ortaklik: "İş Ortaklığı",
       iletisim: "İletişim",
       randevu: "Toplantı Al",
@@ -46,32 +45,32 @@ export const t = {
       detailsCta: "Detayları İncele",
       items: [
         {
-          title: "Siber Güvenlik",
-          desc: "İşletmenizi dijital tehditlere karşı koruyoruz. Güvenlik açıklarını tespit ediyor, sürekli izleme ile riskleri minimize ediyoruz.",
-        },
-        {
-          title: "Otomasyon Çözümleri",
-          desc: "Tekrarlayan iş süreçlerinizi otomatikleştiriyoruz. Zamandan tasarruf edin, hata oranını sıfıra indirin, ekibinizi stratejik işlere odaklayın.",
-        },
-        {
-          title: "SaaS Ürün Geliştirme",
-          desc: "Fikrinizi ölçeklenebilir bir bulut ürününe dönüştürüyoruz. Abonelik yönetimi, kullanıcı paneli ve analitik dahil.",
-        },
-        {
-          title: "Özel Yazılım Geliştirme",
-          desc: "İşletmenize özel web uygulamaları ve yönetim panelleri geliştiriyoruz. Tam size uygun, hızlı ve güvenli çözümler.",
+          title: "Dijital Reklam Yönetimi",
+          desc: "Instagram, Facebook, TikTok ve Google'da müşteri bulan reklam kampanyaları kuruyoruz. Bütçeniz nereye gidiyor, kaç kişi geldi, kaçı müşteri oldu — her şeyi raporluyoruz.",
         },
         {
           title: "E-Ticaret Çözümleri",
-          desc: "Online satış altyapınızı kuruyoruz. Ödeme sistemleri, stok yönetimi ve müşteri deneyimi optimizasyonu ile satışlarınızı artırın.",
+          desc: "İnternetten satış yapmak istiyorsanız mağazanızı kuruyoruz. Ödeme alma, kargo takibi, stok yönetimi — hepsi hazır, siz sadece ürünlerinizi ekleyin.",
+        },
+        {
+          title: "Özel Yazılım Geliştirme",
+          desc: "Excel'le yönettiğiniz işleri size özel bir yazılıma taşıyoruz. Müşteri takibi, sipariş yönetimi, raporlama — işinize özel, her cihazdan erişilebilir.",
+        },
+        {
+          title: "Otomasyon Çözümleri",
+          desc: "Her gün elle yaptığınız tekrarlayan işleri otomatik hale getiriyoruz. Fatura kesimi, stok uyarısı, müşteri bildirimi — sistem sizin yerinize çalışsın.",
         },
         {
           title: "Mobil Uygulama Geliştirme",
-          desc: "iOS ve Android için profesyonel mobil uygulamalar geliştiriyoruz. Müşterilerinize her yerden ulaşın.",
+          desc: "Müşterilerinizin telefonundan sipariş vermesini, randevu almasını veya hesabını yönetmesini istiyorsanız — iPhone ve Android için uygulama yapıyoruz.",
         },
         {
-          title: "Dijital Reklam Yönetimi",
-          desc: "Meta, TikTok ve Google Ads platformlarında veri odaklı reklam kampanyaları yönetiyoruz. Sektörünüze özel stratejiyle bütçenizi en verimli şekilde kullanın.",
+          title: "Siber Güvenlik",
+          desc: "Şirket verilerinizi ve müşteri bilgilerinizi koruma altına alıyoruz. Güvenlik açıklarını tespit edip kapatıyor, sisteminizi 7/24 izliyoruz.",
+        },
+        {
+          title: "SaaS Ürün Geliştirme",
+          desc: "Kendi yazılım ürününüzü çıkarmak istiyorsanız — fikrinizi abonelik modelli, ölçeklenebilir bir bulut ürününe dönüştürüyoruz.",
         },
       ],
     },
@@ -126,54 +125,6 @@ export const t = {
       globalTitle1: "Global Perspektif,",
       globalTitleAccent: "Yerel Uzmanlık",
       globalDesc: "Uluslararası standartlarda hizmet sunarken, yerel iş ihtiyaçlarını derinlemesine anlıyoruz. Dünya çapında kullanılan teknolojileri, Türk iş kültürüne uygun çözümlere dönüştürüyoruz.",
-    },
-    pricing: {
-      badge: "Fiyatlandırma",
-      title: "Hizmet Paketleri",
-      desc: "İhtiyacınıza uygun paketi seçin. Tüm paketler özelleştirilebilir.",
-      popular: "En Popüler",
-      cta: "Teklif Alın",
-      plans: [
-        {
-          name: "Başlangıç",
-          desc: "Küçük işletmeler için temel dijital çözümler.",
-          price: "Teklif Alın",
-          features: [
-            "Kurumsal web sitesi",
-            "Temel SEO optimizasyonu",
-            "SSL sertifikası",
-            "1 yıl hosting",
-            "E-posta desteği",
-          ],
-        },
-        {
-          name: "Profesyonel",
-          desc: "Büyüyen işletmeler için kapsamlı çözümler.",
-          price: "Teklif Alın",
-          features: [
-            "Başlangıç paketindeki her şey",
-            "Otomasyon entegrasyonları",
-            "Özel yazılım geliştirme",
-            "Güvenlik taraması",
-            "Öncelikli destek",
-            "Aylık raporlama",
-          ],
-        },
-        {
-          name: "Kurumsal",
-          desc: "Büyük ölçekli projeler için özel çözümler.",
-          price: "Teklif Alın",
-          features: [
-            "Profesyonel paketindeki her şey",
-            "Güvenlik izleme hizmeti",
-            "Penetrasyon testi",
-            "SaaS ürün geliştirme",
-            "Öncelikli iletişim ve hızlı geri dönüş",
-            "Proje bazlı SLA garantisi",
-            "Kapsamlı dokümantasyon desteği",
-          ],
-        },
-      ],
     },
     contact: {
       badge: "İletişim",
@@ -266,7 +217,6 @@ export const t = {
       projeler: "Projects",
       referanslar: "References",
       hakkimizda: "About",
-      fiyatlandirma: "Pricing",
       ortaklik: "Partnership",
       iletisim: "Contact",
       randevu: "Book a Meeting",
@@ -307,32 +257,32 @@ export const t = {
       detailsCta: "View Details",
       items: [
         {
-          title: "Cybersecurity",
-          desc: "We protect your business against digital threats. We detect security vulnerabilities and minimize risks with continuous monitoring.",
-        },
-        {
-          title: "Automation Solutions",
-          desc: "We automate your repetitive processes. Save time, reduce errors to zero, and let your team focus on strategic work.",
-        },
-        {
-          title: "SaaS Product Development",
-          desc: "We turn your idea into a scalable cloud product. Including subscription management, user dashboard, and analytics.",
-        },
-        {
-          title: "Custom Software Development",
-          desc: "We develop custom web applications and management panels for your business. Fast, secure, and tailored to your needs.",
+          title: "Digital Advertising",
+          desc: "We run ad campaigns that bring real customers on Instagram, Facebook, TikTok, and Google. Where your budget goes, how many people came, how many converted — we report everything.",
         },
         {
           title: "E-Commerce Solutions",
-          desc: "We build your online sales infrastructure. Increase your sales with payment systems, inventory management, and customer experience optimization.",
+          desc: "Want to sell online? We build your store. Payment processing, shipping, inventory — all set up, you just add your products.",
+        },
+        {
+          title: "Custom Software Development",
+          desc: "We replace your spreadsheets with software built for your business. Customer tracking, order management, reporting — tailored to you, accessible from any device.",
+        },
+        {
+          title: "Automation Solutions",
+          desc: "We automate the repetitive tasks you do by hand every day. Invoicing, stock alerts, customer notifications — let the system work for you.",
         },
         {
           title: "Mobile App Development",
-          desc: "We develop professional mobile apps for iOS and Android. Reach your customers from anywhere.",
+          desc: "Want your customers to order, book, or manage their account from their phone? We build apps for iPhone and Android.",
         },
         {
-          title: "Digital Advertising",
-          desc: "We manage data-driven ad campaigns on Meta, TikTok, and Google Ads platforms. Maximize your budget with industry-specific strategies.",
+          title: "Cybersecurity",
+          desc: "We protect your company data and customer information. We find and fix vulnerabilities, and monitor your systems 24/7.",
+        },
+        {
+          title: "SaaS Product Development",
+          desc: "Want to launch your own software product? We turn your idea into a subscription-based, scalable cloud application.",
         },
       ],
     },
@@ -387,54 +337,6 @@ export const t = {
       globalTitle1: "Global Perspective,",
       globalTitleAccent: "Local Expertise",
       globalDesc: "While delivering services at international standards, we deeply understand local business needs. We transform globally used technologies into solutions suited to Turkish business culture.",
-    },
-    pricing: {
-      badge: "Pricing",
-      title: "Service Plans",
-      desc: "Choose the plan that fits your needs. All plans are customizable.",
-      popular: "Most Popular",
-      cta: "Get Quote",
-      plans: [
-        {
-          name: "Starter",
-          desc: "Basic digital solutions for small businesses.",
-          price: "Get Quote",
-          features: [
-            "Corporate website",
-            "Basic SEO optimization",
-            "SSL certificate",
-            "1 year hosting",
-            "Email support",
-          ],
-        },
-        {
-          name: "Professional",
-          desc: "Comprehensive solutions for growing businesses.",
-          price: "Get Quote",
-          features: [
-            "Everything in the Starter plan",
-            "Automation integrations",
-            "Custom software development",
-            "Security scanning",
-            "Priority support",
-            "Monthly reporting",
-          ],
-        },
-        {
-          name: "Enterprise",
-          desc: "Custom solutions for large-scale projects.",
-          price: "Get Quote",
-          features: [
-            "Everything in the Professional plan",
-            "Security monitoring service",
-            "Penetration testing",
-            "SaaS product development",
-            "Priority communication & fast response",
-            "Project-based SLA guarantee",
-            "Comprehensive documentation support",
-          ],
-        },
-      ],
     },
     contact: {
       badge: "Contact",

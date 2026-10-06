@@ -14,7 +14,6 @@ const NAV_HREFS = [
   { key: "projeler" as const, href: "/projeler" },
   { key: "referanslar" as const, href: "/referanslar" },
   { key: "hakkimizda" as const, href: "/hakkimizda" },
-  { key: "fiyatlandirma" as const, href: "/fiyatlandirma" },
   { key: "ortaklik" as const, href: "/ortaklik" },
   { key: "iletisim" as const, href: "/iletisim" },
 ];

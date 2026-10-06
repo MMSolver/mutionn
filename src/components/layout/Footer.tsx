@@ -5,18 +5,17 @@ import { SITE_NAME } from "@/lib/constants";
 import { useTranslation } from "@/lib/useTranslation";
 
 const SERVICE_SLUGS = [
-  "siber-guvenlik",
-  "otomasyon",
-  "saas",
-  "yazilim",
+  "dijital-reklam",
   "e-ticaret",
+  "yazilim",
+  "otomasyon",
+  "mobil-uygulama",
 ] as const;
 
 const COMPANY_HREFS = [
   { key: "hakkimizda" as const, href: "/hakkimizda" },
   { key: "projeler" as const, href: "/projeler" },
   { key: "referanslar" as const, href: "/referanslar" },
-  { key: "fiyatlandirma" as const, href: "/fiyatlandirma" },
   { key: "ortaklik" as const, href: "/ortaklik" },
 ];
 

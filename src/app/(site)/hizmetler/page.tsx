@@ -46,7 +46,7 @@ export default function HizmetlerPage() {
         <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-12">
           {SERVICES.map((service, i) => {
             const Icon = ICON_MAP[service.icon];
-            const isWide = i === 0 || i === 3;
+            const isWide = i === 0;
             return (
               <ScrollReveal
                 key={service.slug}
