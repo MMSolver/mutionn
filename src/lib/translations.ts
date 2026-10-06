@@ -8,6 +8,7 @@ export const t = {
       fiyatlandirma: "Fiyatlandırma",
       ortaklik: "İş Ortaklığı",
       iletisim: "İletişim",
+      randevu: "Toplantı Al",
     },
     hero: {
       badge: "Dijital Dönüşümün Güvenli Adresi",
@@ -264,6 +265,7 @@ export const t = {
       fiyatlandirma: "Pricing",
       ortaklik: "Partnership",
       iletisim: "Contact",
+      randevu: "Book a Meeting",
     },
     hero: {
       badge: "Your Trusted Digital Partner",

@@ -16,6 +16,7 @@ const NAV_HREFS = [
   { key: "hakkimizda" as const, href: "/hakkimizda" },
   { key: "fiyatlandirma" as const, href: "/fiyatlandirma" },
   { key: "ortaklik" as const, href: "/ortaklik" },
+  { key: "iletisim" as const, href: "/iletisim" },
 ];
 
 export function Navbar() {
@@ -85,10 +86,10 @@ export function Navbar() {
           </button>
 
           <Link
-            href="/iletisim"
+            href="/randevu"
             className="hidden rounded-lg bg-[var(--accent-primary)] px-5 py-2.5 text-sm font-semibold text-[var(--bg-primary)] transition-colors hover:bg-[var(--accent-hover)] lg:inline-flex"
           >
-            {t.nav.iletisim}
+            {t.nav.randevu}
           </Link>
 
           <button
@@ -128,10 +129,10 @@ export function Navbar() {
                 </Link>
               ))}
               <Link
-                href="/iletisim"
+                href="/randevu"
                 className="mt-4 block rounded-lg bg-[var(--accent-primary)] px-4 py-3 text-center text-base font-semibold text-[var(--bg-primary)] transition-colors hover:bg-[var(--accent-hover)]"
               >
-                {t.nav.iletisim}
+                {t.nav.randevu}
               </Link>
             </div>
           </motion.div>
