@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Outfit, Space_Grotesk } from "next/font/google";
 import { SITE_NAME, SITE_DESCRIPTION } from "@/lib/constants";
 import { I18nProvider } from "@/lib/i18n";
 import "./globals.css";
 
-const inter = Inter({
+const outfit = Outfit({
   subsets: ["latin", "latin-ext"],
   variable: "--font-sans",
   display: "swap",
@@ -34,7 +34,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="tr" suppressHydrationWarning>
-      <body className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}>
+      <body className={`${outfit.variable} ${spaceGrotesk.variable} antialiased`}>
         <I18nProvider>{children}</I18nProvider>
       </body>
     </html>

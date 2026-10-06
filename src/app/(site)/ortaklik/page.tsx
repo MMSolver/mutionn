@@ -44,7 +44,7 @@ export default function OrtaklikPage() {
         </ScrollReveal>
 
         {/* Benefits */}
-        <ScrollReveal delay={0.1}>
+        <ScrollReveal delay={0.1} direction="scale">
           <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {t.partnership.benefits.map((b, i) => {
               const Icon = BENEFIT_ICONS[i];
@@ -69,13 +69,10 @@ export default function OrtaklikPage() {
         </ScrollReveal>
 
         {/* How it works */}
-        <ScrollReveal delay={0.1}>
+        <ScrollReveal delay={0.1} direction="left">
           <div className="mt-24">
             <div className="text-center">
-              <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-                {t.partnership.howTitle}
-              </p>
-              <h2 className="mt-2 font-[family-name:var(--font-heading)] text-2xl font-bold text-[var(--text-primary)] md:text-3xl">
+              <h2 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-[var(--text-primary)] md:text-3xl">
                 {t.partnership.howSubtitle}
               </h2>
             </div>
@@ -102,14 +99,11 @@ export default function OrtaklikPage() {
         </ScrollReveal>
 
         {/* Who is it for */}
-        <ScrollReveal delay={0.1}>
+        <ScrollReveal delay={0.1} direction="right">
           <div className="mt-24 rounded-2xl border border-[var(--border-default)] bg-[var(--bg-secondary)] p-8 md:p-12">
             <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2">
               <div>
-                <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-                  {t.partnership.whoTitle}
-                </p>
-                <h2 className="mt-2 font-[family-name:var(--font-heading)] text-2xl font-bold text-[var(--text-primary)]">
+                <h2 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-[var(--text-primary)]">
                   {t.partnership.whoSubtitle}
                 </h2>
                 <p className="mt-4 text-sm leading-relaxed text-[var(--text-secondary)]">
@@ -135,10 +129,7 @@ export default function OrtaklikPage() {
           <div className="mt-24" id="basvuru">
             <div className="mx-auto max-w-2xl">
               <div className="text-center">
-                <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-                  {t.partnership.formTitle}
-                </p>
-                <h2 className="mt-2 font-[family-name:var(--font-heading)] text-2xl font-bold text-[var(--text-primary)] md:text-3xl">
+                <h2 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-[var(--text-primary)] md:text-3xl">
                   {t.partnership.formSubtitle}
                 </h2>
                 <p className="mt-3 text-sm text-[var(--text-secondary)]">

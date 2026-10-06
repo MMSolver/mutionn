@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Mail, MessageSquare, MapPin, Send } from "lucide-react";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { useTranslation } from "@/lib/useTranslation";
 
 export default function IletisimPage() {
@@ -11,21 +12,20 @@ export default function IletisimPage() {
   return (
     <section className="pt-32 pb-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-            {t.contact.badge}
-          </p>
-          <h1 className="mt-2 font-[family-name:var(--font-heading)] text-4xl font-bold text-[var(--text-primary)] md:text-5xl">
-            {t.contact.title}
-          </h1>
-          <p className="mt-4 text-lg text-[var(--text-secondary)]">
-            {t.contact.desc}
-          </p>
-        </div>
+        <ScrollReveal>
+          <div className="mx-auto max-w-2xl text-center">
+            <h1 className="font-[family-name:var(--font-heading)] text-4xl font-bold text-[var(--text-primary)] md:text-5xl">
+              {t.contact.title}
+            </h1>
+            <p className="mt-4 text-lg text-[var(--text-secondary)]">
+              {t.contact.desc}
+            </p>
+          </div>
+        </ScrollReveal>
 
         <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-5">
           {/* Contact Info */}
-          <div className="space-y-8 lg:col-span-2">
+          <ScrollReveal direction="left" delay={0.1} className="space-y-8 lg:col-span-2">
             <div className="flex items-start gap-4">
               <div className="rounded-lg bg-[var(--accent-primary)]/10 p-3">
                 <Mail size={20} className="text-[var(--accent-primary)]" />
@@ -67,10 +67,11 @@ export default function IletisimPage() {
                 </p>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Form */}
-          <div className="rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] p-8 lg:col-span-3">
+          <ScrollReveal direction="right" delay={0.2} className="lg:col-span-3">
+          <div className="rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] p-8">
             {submitted ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <div className="mb-4 rounded-full bg-[var(--success)]/10 p-4">
@@ -149,6 +150,7 @@ export default function IletisimPage() {
               </form>
             )}
           </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

@@ -250,10 +250,7 @@ export default function ReferanslarPage() {
         {/* Header */}
         <ScrollReveal>
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-              {t.references.badge}
-            </p>
-            <h1 className="mt-3 font-[family-name:var(--font-heading)] text-4xl font-bold tracking-tight text-[var(--text-primary)] md:text-5xl">
+            <h1 className="font-[family-name:var(--font-heading)] text-4xl font-bold tracking-tight text-[var(--text-primary)] md:text-5xl">
               {t.references.title}
             </h1>
             <p className="mt-4 text-lg text-[var(--text-secondary)]">
@@ -263,7 +260,7 @@ export default function ReferanslarPage() {
         </ScrollReveal>
 
         {/* Stats bar */}
-        <ScrollReveal delay={0.1}>
+        <ScrollReveal delay={0.1} direction="scale">
           <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
             {STATS.map((stat) => (
               <div
@@ -282,11 +279,11 @@ export default function ReferanslarPage() {
         </ScrollReveal>
 
         {/* Brand scroll band */}
-        <ScrollReveal delay={0.15}>
+        <ScrollReveal delay={0.15} direction="left">
           <div className="mt-16">
-            <p className="mb-6 text-center text-xs font-medium uppercase tracking-widest text-[var(--text-muted)]">
+            <h3 className="mb-6 text-center text-sm font-semibold text-[var(--text-muted)]">
               {t.references.brands}
-            </p>
+            </h3>
             <div className="relative overflow-hidden">
               <div className="absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-[var(--bg-primary)] to-transparent" />
               <div className="absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-[var(--bg-primary)] to-transparent" />
@@ -321,10 +318,7 @@ export default function ReferanslarPage() {
           <div className="mt-20">
             <div className="mb-8 flex items-end justify-between">
               <div>
-                <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-                  {t.references.testimonialsBadge}
-                </p>
-                <h2 className="mt-2 font-[family-name:var(--font-heading)] text-2xl font-bold text-[var(--text-primary)] md:text-3xl">
+                <h2 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-[var(--text-primary)] md:text-3xl">
                   {t.references.testimonialsTitle}
                 </h2>
               </div>
@@ -371,7 +365,7 @@ export default function ReferanslarPage() {
         </ScrollReveal>
 
         {/* Highlight quote */}
-        <ScrollReveal delay={0.1}>
+        <ScrollReveal delay={0.1} direction="scale">
           <div className="mx-auto mt-20 max-w-3xl rounded-2xl border border-[var(--accent-primary)]/20 bg-[var(--bg-secondary)] p-10 text-center md:p-14">
             <Quote className="mx-auto mb-6 h-10 w-10 text-[var(--accent-primary)] opacity-40" />
             <p className="text-xl leading-relaxed text-[var(--text-secondary)] italic md:text-2xl">

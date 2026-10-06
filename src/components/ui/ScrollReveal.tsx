@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState, type ReactNode } from "react";
 
-type Direction = "up" | "left" | "right" | "none";
+type Direction = "up" | "down" | "left" | "right" | "scale" | "none";
 
 export function ScrollReveal({
   children,
@@ -43,8 +43,10 @@ export function ScrollReveal({
 
   const transforms: Record<Direction, string> = {
     up: "translateY(40px)",
+    down: "translateY(-40px)",
     left: "translateX(-40px)",
     right: "translateX(40px)",
+    scale: "scale(0.92)",
     none: "none",
   };
 

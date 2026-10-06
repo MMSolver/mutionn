@@ -6,7 +6,7 @@ import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 
 function DottedGlobe({
-  accentColor = "#D4874B",
+  accentColor = "#06B6D4",
   dotColor = "#A3A3A3",
   rotationSpeed = 0.0008,
   radius = 2,
@@ -150,7 +150,7 @@ export function Globe({ className, interactive = true }: GlobeProps) {
         <ambientLight intensity={0.3} />
         <pointLight position={[10, 10, 10]} intensity={0.4} color="#FAFAFA" />
 
-        <DottedGlobe accentColor="#D4874B" dotColor="#A3A3A3" />
+        <DottedGlobe accentColor="#06B6D4" dotColor="#A3A3A3" />
 
         {interactive && (
           <OrbitControls

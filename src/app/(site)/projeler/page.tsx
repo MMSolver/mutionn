@@ -29,7 +29,7 @@ const PROJECTS = [
       "Yüksek trafikli bir e-ticaret platformunun sıfırdan tasarımı ve geliştirilmesi. Mikro-servis mimarisi, CDN entegrasyonu ve gerçek zamanlı stok yönetimi.",
     tech: ["Next.js", "Shopify API", "Tailwind CSS", "PostgreSQL"],
     icon: ShoppingCart,
-    accentColor: "#D4874B",
+    accentColor: "#06B6D4",
     highlight: { icon: TrendingUp, value: "10K+", label: "Günlük Ziyaretçi" },
     scope: ["Platform Tasarımı", "API Entegrasyonu", "Performans Optimizasyonu"],
   },
@@ -65,7 +65,7 @@ const PROJECTS = [
       "Multi-tenant mimari ile bulut tabanlı müşteri yönetim platformu. Rol bazlı erişim kontrolü, faturalandırma modülü ve analitik dashboard.",
     tech: ["Next.js", "Drizzle ORM", "Vercel", "Stripe"],
     icon: Cloud,
-    accentColor: "#D4874B",
+    accentColor: "#06B6D4",
     highlight: { icon: TrendingUp, value: "200+", label: "Aktif Kullanıcı" },
     scope: ["SaaS Mimarisi", "Ödeme Sistemi", "Analitik Panel"],
   },
@@ -77,7 +77,7 @@ const PROJECTS = [
       "Hızlı, SEO-uyumlu ve tamamen yönetilebilir kurumsal web sitesi. Headless CMS, otomatik görsel optimizasyon ve çoklu dil desteği.",
     tech: ["Next.js", "Payload CMS", "Tailwind", "Vercel"],
     icon: Code,
-    accentColor: "#D4874B",
+    accentColor: "#06B6D4",
     highlight: { icon: Zap, value: "98+", label: "Lighthouse Skoru" },
     scope: ["UI/UX Tasarım", "CMS Entegrasyonu", "SEO Optimizasyonu"],
   },
@@ -89,7 +89,7 @@ const PROJECTS = [
       "Restoran zinciri için cross-platform mobil sipariş ve ödeme uygulaması. Push bildirimler, gerçek zamanlı sipariş takibi ve ödeme entegrasyonu.",
     tech: ["React Native", "Firebase", "Stripe", "Node.js"],
     icon: Smartphone,
-    accentColor: "#D4874B",
+    accentColor: "#06B6D4",
     highlight: { icon: TrendingUp, value: "5K+", label: "İndirme" },
     scope: ["Mobil Geliştirme", "Ödeme Entegrasyonu", "Push Bildirim"],
   },
@@ -294,9 +294,9 @@ export default function ProjelerPage() {
 
         {/* Testimonials band */}
         <div className="mt-20">
-          <p className="mb-8 text-center text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
+          <h3 className="mb-8 text-center font-[family-name:var(--font-heading)] text-xl font-bold text-[var(--text-primary)]">
             {t.projects.testimonials}
-          </p>
+          </h3>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {[
               {

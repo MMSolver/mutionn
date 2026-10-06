@@ -28,10 +28,7 @@ export default function HakkimizdaPage() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <ScrollReveal>
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-              {t.about.badge}
-            </p>
-            <h1 className="mt-2 font-[family-name:var(--font-heading)] text-4xl font-bold text-[var(--text-primary)] md:text-5xl">
+            <h1 className="font-[family-name:var(--font-heading)] text-4xl font-bold text-[var(--text-primary)] md:text-5xl">
               {t.about.title}
             </h1>
             <p className="mt-4 text-lg text-[var(--text-secondary)]">
@@ -43,8 +40,9 @@ export default function HakkimizdaPage() {
         <div className="mt-20 grid grid-cols-1 gap-8 md:grid-cols-3">
           {t.about.values.map((value, i) => {
             const Icon = VALUE_ICONS[i];
+            const dirs = ["left", "up", "right"] as const;
             return (
-              <ScrollReveal key={value.title} delay={0.1 + 0.1 * i}>
+              <ScrollReveal key={value.title} delay={0.1 + 0.1 * i} direction={dirs[i]}>
                 <div className="rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] p-8">
                   <div className="mb-4 inline-flex rounded-lg bg-[var(--accent-primary)]/10 p-3">
                     <Icon
@@ -64,7 +62,7 @@ export default function HakkimizdaPage() {
           })}
         </div>
 
-        <ScrollReveal delay={0.2}>
+        <ScrollReveal delay={0.2} direction="right">
           <div className="mt-24 flex flex-col items-center gap-12 lg:flex-row">
             <div className="flex-1">
               <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-[var(--text-primary)]">

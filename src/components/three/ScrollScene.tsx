@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useMemo } from "react";
+import { useRef, useEffect, useMemo, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
 import { useTranslation } from "@/lib/useTranslation";
@@ -11,13 +11,29 @@ import {
 } from "@react-three/postprocessing";
 import * as THREE from "three";
 
-const ACCENT = "#D4874B";
-const ACCENT_DARK = "#A0663A";
+const ACCENT = "#06B6D4";
+const ACCENT_DARK = "#0891B2";
 const SURFACE = "#242424";
 const BG = "#0A0A0A";
 
 const scrollStore = { progress: 0 };
 const mouseStore = { x: 0, y: 0 };
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768 || /Mobi|Android/i.test(navigator.userAgent));
+  }, []);
+  return isMobile;
+}
+
+function useReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
+  return reduced;
+}
 
 // ─── Helix DNA-style data streams ───
 function DataHelix({ direction = 1 }: { direction?: number }) {
@@ -110,11 +126,12 @@ function Line({
     return g;
   }, [start, end]);
 
-  return (
-    <line geometry={geo}>
-      <lineBasicMaterial color={color} transparent opacity={opacity} />
-    </line>
-  );
+  const lineObj = useMemo(() => {
+    const mat = new THREE.LineBasicMaterial({ color, transparent: true, opacity });
+    return new THREE.Line(geo, mat);
+  }, [geo, color, opacity]);
+
+  return <primitive object={lineObj} />;
 }
 
 // ─── Energy pulse wave ───
@@ -600,7 +617,7 @@ function CameraRig() {
 }
 
 // ─── Main scene ───
-function Scene() {
+function Scene({ isMobile }: { isMobile: boolean }) {
   return (
     <>
       <CameraRig />
@@ -608,21 +625,23 @@ function Scene() {
       <ambientLight intensity={0.2} />
       <directionalLight position={[5, 10, 5]} intensity={0.8} color="#FAFAFA" />
       <pointLight position={[-4, 3, -4]} intensity={0.6} color={ACCENT} distance={20} />
-      <pointLight position={[4, -2, 4]} intensity={0.3} color={ACCENT_DARK} distance={15} />
-      <spotLight
-        position={[0, 12, 0]}
-        angle={0.4}
-        penumbra={0.8}
-        intensity={0.5}
-        color="#FAFAFA"
-      />
+      {!isMobile && <pointLight position={[4, -2, 4]} intensity={0.3} color={ACCENT_DARK} distance={15} />}
+      {!isMobile && (
+        <spotLight
+          position={[0, 12, 0]}
+          angle={0.4}
+          penumbra={0.8}
+          intensity={0.5}
+          color="#FAFAFA"
+        />
+      )}
 
       <GeometricCore />
-      <DataHelix direction={1} />
+      {!isMobile && <DataHelix direction={1} />}
       <NetworkNodes />
-      <ParticleField />
-      <FloatingShards />
-      <MouseLight />
+      <ParticleField count={isMobile ? 200 : 500} />
+      {!isMobile && <FloatingShards />}
+      {!isMobile && <MouseLight />}
 
       <gridHelper
         args={[50, 50, ACCENT, SURFACE]}
@@ -633,14 +652,161 @@ function Scene() {
 
       <Environment preset="city" />
 
-      <EffectComposer>
-        <Bloom
-          luminanceThreshold={0.6}
-          luminanceSmoothing={0.3}
-          intensity={0.7}
-        />
-        <Vignette eskil={false} offset={0.1} darkness={0.9} />
-      </EffectComposer>
+      {!isMobile && (
+        <EffectComposer>
+          <Bloom
+            luminanceThreshold={0.6}
+            luminanceSmoothing={0.3}
+            intensity={0.7}
+          />
+          <Vignette eskil={false} offset={0.1} darkness={0.9} />
+        </EffectComposer>
+      )}
+    </>
+  );
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function renderSections(t: any) {
+  return (
+    <>
+      {/* Section 1: Hero */}
+      <section className="flex min-h-[100dvh] w-full items-center">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+          <div className="max-w-2xl">
+            <h1 className="font-[family-name:var(--font-heading)] text-5xl font-bold leading-[1.1] tracking-tight text-[var(--text-primary)] md:text-6xl lg:text-7xl">
+              {t.hero.title1}{" "}
+              <span className="text-[var(--accent-primary)]">
+                {t.hero.titleAccent}
+              </span>
+            </h1>
+            <p className="mt-6 max-w-lg text-lg leading-relaxed text-[var(--text-secondary)]">
+              {t.hero.desc}
+            </p>
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+              <a
+                href="/iletisim"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--accent-primary)] px-7 py-3.5 text-base font-semibold text-[var(--bg-primary)] transition-colors hover:bg-[var(--accent-hover)]"
+              >
+                {t.hero.cta1}
+              </a>
+              <a
+                href="/hizmetler"
+                className="inline-flex items-center justify-center rounded-lg border border-[var(--border-hover)] px-7 py-3.5 text-base font-semibold text-[var(--text-primary)] transition-colors hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
+              >
+                {t.hero.cta2}
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 2: Services */}
+      <section className="flex min-h-[100dvh] w-full items-center">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+          <div className="ml-auto max-w-xl text-right">
+            <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
+              {t.heroServices.title}
+            </p>
+            <h2 className="mt-2 font-[family-name:var(--font-heading)] text-4xl font-bold text-[var(--text-primary)]">
+              {t.heroServices.subtitle}
+            </h2>
+            <div className="mt-8 space-y-3">
+              {t.services.items.map((s: { title: string }) => (
+                <div
+                  key={s.title}
+                  className="rounded-lg border border-[var(--border-default)]/50 bg-[var(--bg-primary)]/60 px-5 py-3 text-right backdrop-blur-md"
+                >
+                  <span className="text-sm font-medium text-[var(--text-primary)]">
+                    {s.title}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 3: Stats */}
+      <section className="flex min-h-[100dvh] w-full items-center">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-[var(--text-primary)] md:text-4xl">
+              {t.heroStats.title}{" "}
+              <span className="text-[var(--accent-primary)]">Mution</span>
+            </h2>
+            <div className="mt-12 grid grid-cols-2 gap-6 md:grid-cols-4">
+              {[
+                { value: "50+", label: t.heroStats.projects },
+                { value: "99.9%", label: t.heroStats.uptime },
+                { value: t.heroStats.supportVal, label: t.heroStats.support },
+                { value: "15+", label: t.heroStats.clients },
+              ].map((stat: { value: string; label: string }) => (
+                <div
+                  key={stat.label}
+                  className="rounded-xl border border-[var(--border-default)]/50 bg-[var(--bg-primary)]/60 p-6 backdrop-blur-md"
+                >
+                  <p className="font-[family-name:var(--font-heading)] text-3xl font-bold text-[var(--accent-primary)] md:text-4xl">
+                    {stat.value}
+                  </p>
+                  <p className="mt-1 text-sm text-[var(--text-secondary)]">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 4: Testimonials */}
+      <section className="flex min-h-[100dvh] w-full items-center">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-4xl">
+            <p className="text-center text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
+              {t.heroTestimonials.badge}
+            </p>
+            <h2 className="mt-2 text-center font-[family-name:var(--font-heading)] text-4xl font-bold text-[var(--text-primary)]">
+              {t.heroTestimonials.title}
+            </h2>
+
+            <div className="mt-12 mx-auto max-w-2xl rounded-2xl border border-[var(--border-default)]/50 bg-[var(--bg-primary)]/60 p-8 backdrop-blur-xl">
+              <p className="text-lg leading-relaxed text-[var(--text-secondary)] italic">
+                &ldquo;Güvenlik denetiminde kritik açıkları tespit edip hızla kapattı. Teknik bilgisi ve iletişimi mükemmel. Güvenle çalışabileceğiniz bir isim.&rdquo;
+              </p>
+              <div className="mt-6 flex items-center gap-4">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--accent-primary)] text-sm font-bold text-[var(--bg-primary)]">
+                  M
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-[var(--text-primary)]">Murat D.</p>
+                  <p className="text-xs text-[var(--text-muted)]">CTO, Fintech Startup</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 5: CTA */}
+      <section className="flex min-h-[100dvh] w-full items-center">
+        <div className="mx-auto w-full max-w-7xl px-6 text-center lg:px-8">
+          <div className="mx-auto max-w-2xl rounded-2xl border border-[var(--border-default)]/50 bg-[var(--bg-primary)]/70 p-12 backdrop-blur-xl">
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-[var(--text-primary)] md:text-4xl">
+              {t.heroCta.title}
+            </h2>
+            <p className="mt-4 text-lg text-[var(--text-secondary)]">
+              {t.heroCta.desc}
+            </p>
+            <a
+              href="/iletisim"
+              className="mt-8 inline-flex items-center gap-2 rounded-lg bg-[var(--accent-primary)] px-8 py-4 text-base font-semibold text-[var(--bg-primary)] transition-colors hover:bg-[var(--accent-hover)]"
+            >
+              {t.heroCta.button}
+            </a>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
@@ -649,6 +815,8 @@ function Scene() {
 export function ScrollScene() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
+  const isMobile = useIsMobile();
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -665,21 +833,38 @@ export function ScrollScene() {
 
     const el = containerRef.current;
     el?.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("mousemove", handleMouse, { passive: true });
+    if (!isMobile) {
+      window.addEventListener("mousemove", handleMouse, { passive: true });
+    }
     return () => {
       el?.removeEventListener("scroll", handleScroll);
       window.removeEventListener("mousemove", handleMouse);
     };
-  }, []);
+  }, [isMobile]);
+
+  if (reducedMotion) {
+    return (
+      <div className="relative min-h-[100dvh] h-[100dvh] w-full overflow-hidden bg-[var(--bg-primary)]">
+        <div className="absolute inset-0 z-0 bg-gradient-to-br from-[var(--bg-primary)] via-[var(--bg-secondary)] to-[var(--bg-primary)]">
+          <div className="absolute inset-0 opacity-10" style={{
+            backgroundImage: `radial-gradient(circle at 30% 40%, ${ACCENT}40 0%, transparent 50%), radial-gradient(circle at 70% 60%, ${ACCENT_DARK}30 0%, transparent 40%)`,
+          }} />
+        </div>
+        <div ref={containerRef} className="absolute inset-0 z-10 overflow-y-auto" style={{ scrollBehavior: "auto" }}>
+          {renderSections(t)}
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    <div className="relative min-h-[100dvh] h-[100dvh] w-full overflow-hidden">
       {/* Fixed 3D background */}
       <div className="absolute inset-0 z-0">
         <Canvas
-          dpr={[1, 2]}
+          dpr={isMobile ? [1, 1.5] : [1, 2]}
           gl={{
-            antialias: true,
+            antialias: !isMobile,
             alpha: false,
             powerPreference: "high-performance",
           }}
@@ -688,7 +873,7 @@ export function ScrollScene() {
         >
           <color attach="background" args={[BG]} />
           <fog attach="fog" args={[BG, 15, 40]} />
-          <Scene />
+          <Scene isMobile={isMobile} />
         </Canvas>
       </div>
 
@@ -698,182 +883,7 @@ export function ScrollScene() {
         className="absolute inset-0 z-10 overflow-y-auto"
         style={{ scrollBehavior: "smooth" }}
       >
-        {/* Section 1: Hero */}
-        <section className="flex h-screen w-full items-center">
-          <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
-            <div className="max-w-2xl">
-              <p className="mb-4 text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-                {t.hero.badge}
-              </p>
-              <h1 className="font-[family-name:var(--font-heading)] text-5xl font-bold leading-[1.1] tracking-tight text-[var(--text-primary)] md:text-6xl lg:text-7xl">
-                {t.hero.title1}{" "}
-                <span className="text-[var(--accent-primary)]">
-                  {t.hero.titleAccent}
-                </span>
-              </h1>
-              <p className="mt-6 max-w-lg text-lg leading-relaxed text-[var(--text-secondary)]">
-                {t.hero.desc}
-              </p>
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                <a
-                  href="/iletisim"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--accent-primary)] px-7 py-3.5 text-base font-semibold text-[var(--bg-primary)] transition-colors hover:bg-[var(--accent-hover)]"
-                >
-                  {t.hero.cta1}
-                </a>
-                <a
-                  href="/hizmetler"
-                  className="inline-flex items-center justify-center rounded-lg border border-[var(--border-hover)] px-7 py-3.5 text-base font-semibold text-[var(--text-primary)] transition-colors hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
-                >
-                  {t.hero.cta2}
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 2: Services */}
-        <section className="flex h-screen w-full items-center">
-          <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
-            <div className="ml-auto max-w-xl text-right">
-              <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-                {t.heroServices.title}
-              </p>
-              <h2 className="mt-2 font-[family-name:var(--font-heading)] text-4xl font-bold text-[var(--text-primary)]">
-                {t.heroServices.subtitle}
-              </h2>
-              <div className="mt-8 space-y-3">
-                {t.services.items.map((s) => (
-                  <div
-                    key={s.title}
-                    className="rounded-lg border border-[var(--border-default)]/50 bg-[var(--bg-primary)]/60 px-5 py-3 text-right backdrop-blur-md"
-                  >
-                    <span className="text-sm font-medium text-[var(--text-primary)]">
-                      {s.title}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 3: Stats */}
-        <section className="flex h-screen w-full items-center">
-          <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
-            <div className="mx-auto max-w-3xl text-center">
-              <h2 className="font-[family-name:var(--font-heading)] text-4xl font-bold text-[var(--text-primary)]">
-                {t.heroStats.title}{" "}
-                <span className="text-[var(--accent-primary)]">Mution</span>
-              </h2>
-              <div className="mt-12 grid grid-cols-2 gap-6 md:grid-cols-4">
-                {[
-                  { value: "50+", label: t.heroStats.projects },
-                  { value: "99.9%", label: t.heroStats.uptime },
-                  { value: t.heroStats.supportVal, label: t.heroStats.support },
-                  { value: "15+", label: t.heroStats.clients },
-                ].map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="rounded-xl border border-[var(--border-default)]/50 bg-[var(--bg-primary)]/60 p-6 backdrop-blur-md"
-                  >
-                    <p className="font-[family-name:var(--font-heading)] text-3xl font-bold text-[var(--accent-primary)] md:text-4xl">
-                      {stat.value}
-                    </p>
-                    <p className="mt-1 text-sm text-[var(--text-secondary)]">
-                      {stat.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 4: Testimonials */}
-        <section className="flex h-screen w-full items-center">
-          <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
-            <div className="mx-auto max-w-4xl">
-              <p className="text-center text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-                {t.heroTestimonials.badge}
-              </p>
-              <h2 className="mt-2 text-center font-[family-name:var(--font-heading)] text-4xl font-bold text-[var(--text-primary)]">
-                {t.heroTestimonials.title}
-              </h2>
-
-              <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-                {[
-                  {
-                    name: "Ahmet Y.",
-                    role: "CEO, E-Ticaret Şirketi",
-                    quote:
-                      "Sitemizin trafiği 3 ayda 4 katına çıktı. Teknik altyapı konusunda tam bir profesyonel.",
-                  },
-                  {
-                    name: "Elif K.",
-                    role: "Operasyon Müdürü, Lojistik Firma",
-                    quote:
-                      "Otomasyon çözümleri sayesinde günde 2 saat tasarruf ediyoruz. İş süreçlerimiz artık hatasız işliyor.",
-                  },
-                  {
-                    name: "Murat D.",
-                    role: "CTO, Fintech Startup",
-                    quote:
-                      "Güvenlik denetiminde kritik açıkları tespit edip hızla kapattı. Güvenle çalışabileceğiniz bir isim.",
-                  },
-                ].map((review) => (
-                  <div
-                    key={review.name}
-                    className="flex flex-col rounded-xl border border-[var(--border-default)]/50 bg-[var(--bg-primary)]/60 p-6 backdrop-blur-md"
-                  >
-                    <div className="mb-3 flex gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <svg
-                          key={i}
-                          className="h-4 w-4 fill-[var(--accent-primary)]"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                      ))}
-                    </div>
-                    <p className="flex-1 text-sm leading-relaxed text-[var(--text-secondary)] italic">
-                      &ldquo;{review.quote}&rdquo;
-                    </p>
-                    <div className="mt-4 border-t border-[var(--border-default)]/30 pt-4">
-                      <p className="text-sm font-semibold text-[var(--text-primary)]">
-                        {review.name}
-                      </p>
-                      <p className="text-xs text-[var(--text-muted)]">
-                        {review.role}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 5: CTA */}
-        <section className="flex h-screen w-full items-center">
-          <div className="mx-auto w-full max-w-7xl px-6 text-center lg:px-8">
-            <div className="mx-auto max-w-2xl rounded-2xl border border-[var(--border-default)]/50 bg-[var(--bg-primary)]/70 p-12 backdrop-blur-xl">
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-[var(--text-primary)] md:text-4xl">
-                {t.heroCta.title}
-              </h2>
-              <p className="mt-4 text-lg text-[var(--text-secondary)]">
-                {t.heroCta.desc}
-              </p>
-              <a
-                href="/iletisim"
-                className="mt-8 inline-flex items-center gap-2 rounded-lg bg-[var(--accent-primary)] px-8 py-4 text-base font-semibold text-[var(--bg-primary)] transition-colors hover:bg-[var(--accent-hover)]"
-              >
-                {t.heroCta.button}
-              </a>
-            </div>
-          </div>
-        </section>
+        {renderSections(t)}
       </div>
     </div>
   );

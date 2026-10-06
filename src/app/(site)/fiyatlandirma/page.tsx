@@ -13,10 +13,7 @@ export default function FiyatlandirmaPage() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <ScrollReveal>
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent-primary)]">
-              {t.pricing.badge}
-            </p>
-            <h1 className="mt-2 font-[family-name:var(--font-heading)] text-4xl font-bold text-[var(--text-primary)] md:text-5xl">
+            <h1 className="font-[family-name:var(--font-heading)] text-4xl font-bold text-[var(--text-primary)] md:text-5xl">
               {t.pricing.title}
             </h1>
             <p className="mt-4 text-lg text-[var(--text-secondary)]">
@@ -25,7 +22,7 @@ export default function FiyatlandirmaPage() {
           </div>
         </ScrollReveal>
 
-        <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div className="mx-auto mt-16 grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-3">
           {t.pricing.plans.map((plan, i) => {
             const isPopular = i === 1;
             return (

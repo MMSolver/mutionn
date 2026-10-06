@@ -12,7 +12,7 @@ import * as THREE from "three";
 
 function DistortedSphere({
   position = [0, 0, 0] as [number, number, number],
-  color = "#D4874B",
+  color = "#06B6D4",
   speed = 1,
   distort = 0.4,
   radius = 1,
@@ -43,7 +43,7 @@ function DistortedSphere({
 
 function FloatingTorus({
   position = [0, 0, 0] as [number, number, number],
-  color = "#A0663A",
+  color = "#0891B2",
   speed = 1,
 }) {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -99,7 +99,7 @@ function FloatingIcosahedron({
 
 function ParticleField({
   count = 400,
-  color = "#D4874B",
+  color = "#06B6D4",
 }) {
   const points = useMemo(() => {
     const positions = new Float32Array(count * 3);
@@ -156,18 +156,18 @@ export function HeroScene({ className }: HeroSceneProps) {
         <pointLight
           position={[-10, -10, -10]}
           intensity={0.3}
-          color="#D4874B"
+          color="#06B6D4"
         />
 
         <DistortedSphere
           position={[-0.5, 0.3, 0]}
-          color="#D4874B"
+          color="#06B6D4"
           radius={1.4}
           distort={0.35}
         />
         <FloatingTorus
           position={[2.5, -0.8, -1.5]}
-          color="#A0663A"
+          color="#0891B2"
           speed={0.8}
         />
         <FloatingIcosahedron
@@ -176,7 +176,7 @@ export function HeroScene({ className }: HeroSceneProps) {
           speed={0.6}
         />
 
-        <ParticleField count={350} color="#D4874B" />
+        <ParticleField count={350} color="#06B6D4" />
 
         <Environment preset="city" />
       </Canvas>
